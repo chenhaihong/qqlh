@@ -1,0 +1,177 @@
+<template>
+  <div>
+    <div class="titleBox">
+      <TTab :title="[{ value: 0, name: '区域分析' }]" />
+      <TDropList v-model="type" :data="typeNames" />
+    </div>
+    <div class="contentBox">
+      <TEcharts
+        id="mapDistrictAnalysis"
+        :option="chartOption"
+        :loading="loading"
+        :map="map"
+        mapName="广东"
+        resize="true"
+        style="height: 100%;"
+      ></TEcharts>
+    </div>
+  </div>
+</template>
+<script>
+// import {TEcharts} from '../../index.js';
+// import { WELCOME_GD_DISTRICT_ANALYSIS } from "../../../api/index.js";
+
+export default {
+  name: "DistrictAnalysis",
+  data: () => ({
+    loading: true,
+    map: null,
+
+    // 下拉列表
+    type: 0,
+    typeNames: [
+      { value: 0, name: "车流量" },
+      { value: 1, name: "出发地流量" },
+      { value: 2, name: "目的地流量" }
+    ],
+
+    busAll: [],
+    busStart: [],
+    busEnd: [],
+
+    truckAll: [],
+    truckStart: [],
+    truckEnd: []
+  }),
+  props: ["isRebateAddComponent"],
+  components: {},
+  computed: {
+    chartOption() {
+      let bus = [];
+      let truck = [];
+
+      switch (this.type) {
+        case 0:
+          bus = this.busAll;
+          truck = this.truckAll;
+          break;
+        case 1:
+          bus = this.busStart;
+          truck = this.truckStart;
+          break;
+        case 2:
+          bus = this.busEnd;
+          truck = this.truckEnd;
+          break;
+        default:
+        // no default
+      }
+
+      return {
+        legend: {
+          left: "center",
+          top: "20px",
+          data: ["货车", "客车"]
+        },
+        tooltip: {
+          trigger: "item"
+          // formatter: '{a0}，{b0}，{c0}<br />{a1}，{b1}，{c1}',
+          // formatter: function(params) {
+          //     let html = '_NAME_<br/> 全部：_VALUE_';
+          //     return html.replace('_NAME_', params.name)
+          //         .replace('_VALUE_', params.value);
+          // }
+        },
+        toolbox: {
+          showTitle: false,
+          feature: {
+            dataView: { readOnly: false },
+            saveAsImage: {}
+          },
+          left: "right",
+          top: "bottom"
+        },
+        visualMap: {
+          min: 0,
+          max: 100000,
+          range: [0, 100000],
+          text: ["高", "低"],
+          realtime: true,
+          calculable: true,
+          inRange: {
+            color: ["#E3F2F7", "#43A9F1"]
+            // symbolSize: [30, 100],
+          },
+          orient: "horizontal"
+        },
+        series: [
+          {
+            name: "货车",
+            type: "map",
+            mapType: "广东",
+            roam: true,
+            label: {
+              normal: { show: true },
+              emphasis: { show: true }
+            },
+            itemStyle: {
+              normal: {
+                borderWidth: 1,
+                borderColor: "#DDD"
+              }
+            },
+            data: truck
+          },
+          {
+            name: "客车",
+            type: "map",
+            mapType: "广东",
+            roam: true,
+            label: {
+              normal: { show: true },
+              emphasis: { show: true }
+            },
+            itemStyle: {
+              normal: {
+                borderWidth: 1,
+                borderColor: "#DDD"
+              }
+            },
+            data: bus
+          }
+        ],
+        textStyle: {
+          color: "#ff0000",
+          textShadow: "0px 0px 5px #ffffff"
+        }
+      };
+    }
+  },
+  methods: {},
+  watch: {},
+  created() {
+    this.loading = false;
+
+    import("@/config/44.json")
+      .then(data => {
+        this.map = Object.freeze(data.default);
+      })
+      .catch(() => {});
+
+    // WELCOME_GD_DISTRICT_ANALYSIS({
+    //   success: response => {
+    //     let data = response.data;
+
+    //     this.truckAll = data.truckAll;
+    //     this.truckStart = data.truckStart;
+    //     this.truckEnd = data.truckEnd;
+
+    //     this.busAll = data.busAll;
+    //     this.busStart = data.busStart;
+    //     this.busEnd = data.busEnd;
+    //   }
+    // });
+  }
+};
+</script>
+<style lang="less" scoped></style>

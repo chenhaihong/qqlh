@@ -1,0 +1,37 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1490152375567'); /* IE9*/
+  src: url('iconfont.eot?t=1490152375567#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1490152375567') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1490152375567') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1490152375567#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-user:before { content: "\e649"; }
+
+.icon-data:before { content: "\e601"; }
+
+.icon-money:before { content: "\e64b"; }
+
+.icon-news:before { content: "\e6c5"; }
+
+.icon-rebate:before { content: "\e602"; }
+
+.icon-logout:before { content: "\e632"; }
+
+.icon-admin:before { content: "\e7c2"; }
+
+.icon-account:before { content: "\e662"; }
+
+.icon-home:before { content: "\e600"; }
+
+.icon-path:before { content: "\e7c3"; }
+

@@ -1,0 +1,62 @@
+// transition name="fade"
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s ease-in;
+}
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+}
+
+// transition name="bounce"
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+// transition name="slide"
+.slide-enter {
+  opacity: 0;
+  transform: translate(20px, 0);
+}
+.slide-leave-active,
+.slide-leave-active {
+  transition: opacity 0.2s, transform 0.2s;
+}
+.slide-enter-to,
+.slide-leave {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.slide-leave-to {
+  opacity: 0;
+  transform: translate(-20px, 0);
+}
