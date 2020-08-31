@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="AdminList container">
@@ -17,17 +16,31 @@
             <el-table :data="adminsData" stripe>
               <el-table-column prop="role" label="角色"></el-table-column>
               <el-table-column prop="cname" label="昵称"></el-table-column>
-              <el-table-column prop="username" label="登录账号"></el-table-column>
-              <el-table-column prop="createTime" label="创建时间"></el-table-column>
-              <el-table-column prop="lastTime" label="上次登录时间"></el-table-column>
+              <el-table-column
+                prop="username"
+                label="登录账号"
+              ></el-table-column>
+              <el-table-column
+                prop="createTime"
+                label="创建时间"
+              ></el-table-column>
+              <el-table-column
+                prop="lastTime"
+                label="上次登录时间"
+              ></el-table-column>
               <el-table-column label="操作">
                 <template scope="scope">
-                  <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  <el-button
+                    size="small"
+                    @click="handleEdit(scope.$index, scope.row)"
+                    >编辑</el-button
+                  >
                   <el-button
                     size="small"
                     type="danger"
                     @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+                    >删除</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>
@@ -42,10 +55,18 @@
           <div class="content">
             <el-form ref="formAdd" :model="formAdd" label-width="120px">
               <el-form-item label="用户名">
-                <el-input v-model="formAdd.username" placeholder="请输入用户名" style="width: 200px;"></el-input>
+                <el-input
+                  v-model="formAdd.username"
+                  placeholder="请输入用户名"
+                  style="width: 200px;"
+                ></el-input>
               </el-form-item>
               <el-form-item label="昵称">
-                <el-input v-model="formAdd.cname" placeholder="请输入昵称" style="width: 200px;"></el-input>
+                <el-input
+                  v-model="formAdd.cname"
+                  placeholder="请输入昵称"
+                  style="width: 200px;"
+                ></el-input>
               </el-form-item>
               <el-form-item label="密码">
                 <el-input
@@ -64,17 +85,27 @@
                 ></el-input>
               </el-form-item>
               <el-form-item label="备注">
-                <el-input v-model="formAdd.comment" placeholder="请输入备注" style="width: 200px;"></el-input>
+                <el-input
+                  v-model="formAdd.comment"
+                  placeholder="请输入备注"
+                  style="width: 200px;"
+                ></el-input>
               </el-form-item>
               <el-form-item label="角色">
-                <el-select v-model="formAdd.role" placeholder="请选择角色" style="width: 200px;">
+                <el-select
+                  v-model="formAdd.role"
+                  placeholder="请选择角色"
+                  style="width: 200px;"
+                >
                   <el-option label="一级管理员" value="一级管理员"></el-option>
                   <el-option label="审核员" value="审核员"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item>
                 <el-button @click="onAdminAddQuit">取消</el-button>
-                <el-button type="primary" @click="onAdminAddSubmit">立即添加</el-button>
+                <el-button type="primary" @click="onAdminAddSubmit"
+                  >立即添加</el-button
+                >
               </el-form-item>
             </el-form>
           </div>
@@ -88,10 +119,18 @@
           <div class="content">
             <el-form ref="formEdit" :model="formEdit" label-width="120px">
               <el-form-item label="用户名">
-                <el-input v-model="formEdit.username" placeholder="请输入用户名" style="width: 200px;"></el-input>
+                <el-input
+                  v-model="formEdit.username"
+                  placeholder="请输入用户名"
+                  style="width: 200px;"
+                ></el-input>
               </el-form-item>
               <el-form-item label="昵称">
-                <el-input v-model="formEdit.cname" placeholder="请输入昵称" style="width: 200px;"></el-input>
+                <el-input
+                  v-model="formEdit.cname"
+                  placeholder="请输入昵称"
+                  style="width: 200px;"
+                ></el-input>
               </el-form-item>
               <el-form-item label="密码">
                 <el-input
@@ -110,17 +149,27 @@
                 ></el-input>
               </el-form-item>
               <el-form-item label="备注">
-                <el-input v-model="formEdit.comment" placeholder="请输入备注" style="width: 200px;"></el-input>
+                <el-input
+                  v-model="formEdit.comment"
+                  placeholder="请输入备注"
+                  style="width: 200px;"
+                ></el-input>
               </el-form-item>
               <el-form-item label="角色">
-                <el-select v-model="formEdit.role" placeholder="请选择角色" style="width: 200px;">
+                <el-select
+                  v-model="formEdit.role"
+                  placeholder="请选择角色"
+                  style="width: 200px;"
+                >
                   <el-option label="一级管理员" value="一级管理员"></el-option>
                   <el-option label="审核员" value="审核员"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item>
                 <el-button @click="onAdminEditQuit">取消</el-button>
-                <el-button type="primary" @click="onAdminEditSubmit">立即修改</el-button>
+                <el-button type="primary" @click="onAdminEditSubmit"
+                  >立即修改</el-button
+                >
               </el-form-item>
             </el-form>
           </div>

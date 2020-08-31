@@ -44,71 +44,42 @@
   </div>
 </template>
 <script>
-// import { WELCOME_DATA_PANEL } from "../../../api/index.js";
-
-// import { Row, Col } from "element-ui";
+import { getDataPanel } from "@/api/dataView.js";
+import formatNumber from '@/helpers/formatNumber'
 
 export default {
   name: "DataPanel",
   data: () => ({
-    trafficFlowDay: { number: 3000, name: "今日车流" },
-    trafficFlowMonth: { number: 5000, name: "本月车流" },
-    earning: { number: 2000, name: "今日增收" },
-    audit: { number: 1000, name: "待审核" }
+    trafficFlowDay: { number: 0, name: "今日车流" },
+    trafficFlowMonth: { number: 0, name: "本月车流" },
+    earning: { number: 0, name: "今日增收" },
+    audit: { number: 0, name: "待审核" }
   }),
   props: [],
   computed: {
     tfd() {
-      return this.format(this.trafficFlowDay.number);
+      return formatNumber(this.trafficFlowDay.number);
     },
     tfm() {
-      return this.format(this.trafficFlowMonth.number);
+      return formatNumber(this.trafficFlowMonth.number);
     },
     ern() {
-      return this.format(this.earning.number);
+      return formatNumber(this.earning.number);
     },
     adt() {
-      return this.format(this.audit.number);
+      return formatNumber(this.audit.number);
     }
   },
   watch: {},
-  methods: {
-    format(num) {
-      if (num > 999) {
-        let a = (num + "").split("");
-        let b = [];
-
-        for (let i = 0, l = a.length; i < l; i = i + 3) {
-          if (a.length >= 3) {
-            let c = a.pop() + "";
-            c = a.pop() + c;
-            c = a.pop() + c;
-            b.unshift(c);
-          }
-        }
-
-        if (a.length > 0) {
-          let c = a.join("");
-          b.unshift(c);
-        }
-
-        return b.join(",");
-      } else {
-        return num;
-      }
-    }
-  },
   beforeCreate() {},
-  created() {
-    // WELCOME_DATA_PANEL({
-    //   success: response => {
-    //     this.trafficFlowDay.number = response.data.trafficFlowDay;
-    //     this.trafficFlowMonth.number = response.data.trafficFlowMonth;
-    //     this.earning.number = response.data.earning;
-    //     this.audit.number = response.data.audit;
-    //   },
-    //   fail: error => {}
-    // });
+  async created() {
+    const [err, data] = await getDataPanel();
+    if (!err) {
+      this.trafficFlowDay.number = data.trafficFlowDay;
+      this.trafficFlowMonth.number = data.trafficFlowMonth;
+      this.earning.number = data.earning;
+      this.audit.number = data.audit;
+    }
   }
 };
 </script>
@@ -153,7 +124,7 @@ export default {
 
     &.trafficFlowDay {
       background: url(/assets/welcome/image/car-bg.png) no-repeat 0 0 fixed;
-      background-size: 100%;
+      background-size: cover;
 
       .img {
         background: url(/assets/welcome/image/car.png) no-repeat center center;
@@ -162,7 +133,7 @@ export default {
 
     &.trafficFlowMonth {
       background: url(/assets/welcome/image/wheel-bg.png) no-repeat 0 0 fixed;
-      background-size: 100%;
+      background-size: cover;
 
       .img {
         background: url(/assets/welcome/image/wheel.png) no-repeat center center;
@@ -171,7 +142,7 @@ export default {
 
     &.earning {
       background: url(/assets/welcome/image/money-bg.png) no-repeat 0 0 fixed;
-      background-size: 100%;
+      background-size: cover;
 
       .img {
         background: url(/assets/welcome/image/money.png) no-repeat center center;
@@ -180,7 +151,7 @@ export default {
 
     &.audit {
       background: url(/assets/welcome/image/book-bg.png) no-repeat 0 0 fixed;
-      background-size: 100%;
+      background-size: cover;
 
       .img {
         background: url(/assets/welcome/image/book.png) no-repeat center center;

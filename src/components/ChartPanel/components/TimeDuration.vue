@@ -29,9 +29,7 @@
 </template>
 
 <script>
-// import { TEcharts } from "../../index.js";
-// import { WELCOME_TIME_DURATION_ANALYSIS } from "../../../api/index.js";
-
+import { getTimeDurationAnalysisData } from "@/api/dataView";
 export default {
   name: "TimeDuration",
   data: () => ({
@@ -216,27 +214,23 @@ export default {
       return arr;
     }
   },
-  created() {
+  async created() {
     this.xAxis = this.getHourAxis();
-    this.loading = false;
 
-    // WELCOME_TIME_DURATION_ANALYSIS({
-    //   success: response => {
-    //     let data = response.data;
+    const [err, data] = await getTimeDurationAnalysisData();
+    if (!err) {
+      this.loading = false;
 
-    //     this.earningLastDay = data.earningLastDay;
-    //     this.earningThisDay = data.earningThisDay;
-    //     this.earningLastMonth = data.earningLastMonth;
-    //     this.earningThisMonth = data.earningThisMonth;
+      this.earningLastDay = data.earningLastDay;
+      this.earningThisDay = data.earningThisDay;
+      this.earningLastMonth = data.earningLastMonth;
+      this.earningThisMonth = data.earningThisMonth;
 
-    //     this.trafficFLowLastDay = data.trafficFLowLastDay;
-    //     this.trafficFLowThisDay = data.trafficFLowThisDay;
-    //     this.trafficFLowLastMonth = data.trafficFLowLastMonth;
-    //     this.trafficFLowThisMonth = data.trafficFLowThisMonth;
-
-    //     this.loading = false;
-    //   }
-    // });
+      this.trafficFLowLastDay = data.trafficFLowLastDay;
+      this.trafficFLowThisDay = data.trafficFLowThisDay;
+      this.trafficFLowLastMonth = data.trafficFLowLastMonth;
+      this.trafficFLowThisMonth = data.trafficFLowThisMonth;
+    }
   }
 };
 </script>

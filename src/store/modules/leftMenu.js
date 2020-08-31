@@ -1,20 +1,49 @@
-import { LEFT_MENU_SET_LEFT_MENU } from "../mutation-types.js";
+import routes from "@/router/routes";
+import hasIntersect from "@/helpers/hasIntersect";
+import { resolve } from "path";
 
 export default {
+  namespaced: true,
   state: () => ({
-    defaultOpeneds: [], // 当前打开的submenu的 key 数组
-    defaultActive: "/home", // 当前激活菜单的 index
+    visibledAddressableRoutes: [], // 可见的、当前用户角色可以访问的routes数据
   }),
-  getters: {},
   mutations: {
-    [LEFT_MENU_SET_LEFT_MENU](state, payload) {
-      state.defaultOpeneds = payload.defaultOpeneds;
-      state.defaultActive = payload.defaultActive;
-    },
-  },
-  actions: {
-    [LEFT_MENU_SET_LEFT_MENU](context, payload) {
-      context.commit(LEFT_MENU_SET_LEFT_MENU, payload);
+    updateVisibledAddressableRoutes(state, { roles }) {
+      const routes = getVisibledAddressableRoutes(routes, roles);
+      state.visibledAddressableRoutes = Object.freeze(routes);
     },
   },
 };
+
+// 获取可见的、当前用户角色可以访问的routes数据
+function getVisibledAddressableRoutes(
+  tree = routes,
+  userRoles = [],
+  basePath = ""
+) {
+  const visibledAddressableRoutes = [];
+  tree.forEach((node) => {
+    // 1 排除hidden的node
+    if (node.hidden) return;
+    const { roles: routeRoles = [] } = node;
+
+    if (
+      !routeRoles.length || // 2.1 任意已经登录的角色可以访问
+      hasIntersect(userRoles, routeRoles) // 2.2 用户角色与路由可访问的角色有交集
+    ) {
+      // eslint-disable-next-line
+      const { children, component, ...reset } = node;
+      reset.path = resolve(basePath, reset.path);
+      if (children && children.length) {
+        reset.children = getVisibledAddressableRoutes(
+          children,
+          userRoles,
+          reset.path
+        );
+        // if (!reset.children.length) delete reset.children;
+      }
+      visibledAddressableRoutes.push({ ...reset });
+    }
+  });
+  return visibledAddressableRoutes;
+}

@@ -5,9 +5,18 @@
         <section class="searchBox">
           <h1 class="title">搜索类型</h1>
           <div class="content">
-            <el-form :inline="true" :model="auditForm" :rules="rules" ref="auditForm">
+            <el-form
+              :inline="true"
+              :model="auditForm"
+              :rules="rules"
+              ref="auditForm"
+            >
               <el-form-item label="选择车型" prop="vehicle">
-                <el-select v-model="auditForm.vehicle" placeholder="客车/货车" style="width: 180px;">
+                <el-select
+                  v-model="auditForm.vehicle"
+                  placeholder="客车/货车"
+                  style="width: 180px;"
+                >
                   <el-option-group
                     v-for="group in vehicle.groups"
                     :label="group.label"
@@ -89,7 +98,12 @@
                 </el-col>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" icon="search" @click="submitForm('auditForm')">查询</el-button>
+                <el-button
+                  type="primary"
+                  icon="search"
+                  @click="submitForm('auditForm')"
+                  >查询</el-button
+                >
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" icon="document">导出行程</el-button>
@@ -117,42 +131,87 @@
                     :row-class-name="tableRowClassName"
                     @row-click="auditOne"
                   >
-                    <el-table-column prop="id" label="行程ID" width="110"></el-table-column>
-                    <el-table-column prop="name" label="用户昵称" width="100"></el-table-column>
-                    <el-table-column prop="carNumber" label="车牌号" width="100"></el-table-column>
+                    <el-table-column
+                      prop="id"
+                      label="行程ID"
+                      width="110"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="name"
+                      label="用户昵称"
+                      width="100"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="carNumber"
+                      label="车牌号"
+                      width="100"
+                    ></el-table-column>
 
-                    <el-table-column prop="carType" label="车型"></el-table-column>
-                    <el-table-column prop="road" label="行程路段"></el-table-column>
-                    <el-table-column prop="distance" label="里程"></el-table-column>
+                    <el-table-column
+                      prop="carType"
+                      label="车型"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="road"
+                      label="行程路段"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="distance"
+                      label="里程"
+                    ></el-table-column>
 
-                    <el-table-column prop="roadFee" label="涉及路费"></el-table-column>
-                    <el-table-column prop="rebateFee" label="奖励金额"></el-table-column>
-                    <el-table-column prop="rebateType" label="优惠方式"></el-table-column>
+                    <el-table-column
+                      prop="roadFee"
+                      label="涉及路费"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="rebateFee"
+                      label="奖励金额"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="rebateType"
+                      label="优惠方式"
+                    ></el-table-column>
 
-                    <el-table-column prop="startTime" label="开始时间"></el-table-column>
-                    <el-table-column prop="endTime" label="结束时间"></el-table-column>
-                    <el-table-column prop="status" label="审批状态"></el-table-column>
+                    <el-table-column
+                      prop="startTime"
+                      label="开始时间"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="endTime"
+                      label="结束时间"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="status"
+                      label="审批状态"
+                    ></el-table-column>
 
                     <el-table-column prop="operation" label="审批" width="180">
                       <template scope="scope">
                         <div
-                          v-if="scope.row.status=='审核成功'"
+                          v-if="scope.row.status == '审核成功'"
                           style="color: #3BA4E2;"
-                        >{{scope.row.auditor}} 批准通过</div>
-                        <div v-else-if="scope.row.status=='审核失败'">审核未通过</div>
+                        >
+                          {{ scope.row.auditor }} 批准通过
+                        </div>
+                        <div v-else-if="scope.row.status == '审核失败'">
+                          审核未通过
+                        </div>
                         <div v-else>
                           <el-button
                             :plain="true"
                             type="primary"
                             size="small"
                             @click.stop.prevent="passOne(scope.row.id)"
-                          >通过</el-button>
+                            >通过</el-button
+                          >
                           <el-button
                             :plain="true"
                             type="danger"
                             size="small"
                             @click.stop.prevent="failOne(scope.row.id)"
-                          >不通过</el-button>
+                            >不通过</el-button
+                          >
                         </div>
                       </template>
                     </el-table-column>
@@ -174,20 +233,56 @@
               <div class="content">
                 <el-table :data="passed.data" stripe style="width: 100%">
                   <el-table-column prop="date" label="行程ID"></el-table-column>
-                  <el-table-column prop="name" label="用户昵称"></el-table-column>
-                  <el-table-column prop="address" label="车牌号"></el-table-column>
-                  <el-table-column prop="address" label="车型"></el-table-column>
-                  <el-table-column prop="address" label="行程路段"></el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="用户昵称"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="车牌号"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="车型"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="行程路段"
+                  ></el-table-column>
 
-                  <el-table-column prop="address" label="里程"></el-table-column>
-                  <el-table-column prop="address" label="涉及路费"></el-table-column>
-                  <el-table-column prop="address" label="奖励金额"></el-table-column>
-                  <el-table-column prop="address" label="优惠方式"></el-table-column>
-                  <el-table-column prop="address" label="开始时间"></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="里程"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="涉及路费"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="奖励金额"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="优惠方式"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="开始时间"
+                  ></el-table-column>
 
-                  <el-table-column prop="address" label="结束时间"></el-table-column>
-                  <el-table-column prop="address" label="审批状态"></el-table-column>
-                  <el-table-column prop="address" label="审批"></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="结束时间"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="审批状态"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="审批"
+                  ></el-table-column>
                 </el-table>
               </div>
             </el-tab-pane>
@@ -195,20 +290,56 @@
               <div class="content">
                 <el-table :data="waiting.data" stripe style="width: 100%">
                   <el-table-column prop="date" label="行程ID"></el-table-column>
-                  <el-table-column prop="name" label="用户昵称"></el-table-column>
-                  <el-table-column prop="address" label="车牌号"></el-table-column>
-                  <el-table-column prop="address" label="车型"></el-table-column>
-                  <el-table-column prop="address" label="行程路段"></el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="用户昵称"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="车牌号"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="车型"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="行程路段"
+                  ></el-table-column>
 
-                  <el-table-column prop="address" label="里程"></el-table-column>
-                  <el-table-column prop="address" label="涉及路费"></el-table-column>
-                  <el-table-column prop="address" label="奖励金额"></el-table-column>
-                  <el-table-column prop="address" label="优惠方式"></el-table-column>
-                  <el-table-column prop="address" label="开始时间"></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="里程"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="涉及路费"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="奖励金额"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="优惠方式"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="开始时间"
+                  ></el-table-column>
 
-                  <el-table-column prop="address" label="结束时间"></el-table-column>
-                  <el-table-column prop="address" label="审批状态"></el-table-column>
-                  <el-table-column prop="address" label="审批"></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="结束时间"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="审批状态"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="审批"
+                  ></el-table-column>
                 </el-table>
               </div>
             </el-tab-pane>
@@ -216,20 +347,56 @@
               <div class="content">
                 <el-table :data="failed.data" stripe style="width: 100%">
                   <el-table-column prop="date" label="行程ID"></el-table-column>
-                  <el-table-column prop="name" label="用户昵称"></el-table-column>
-                  <el-table-column prop="address" label="车牌号"></el-table-column>
-                  <el-table-column prop="address" label="车型"></el-table-column>
-                  <el-table-column prop="address" label="行程路段"></el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="用户昵称"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="车牌号"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="车型"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="行程路段"
+                  ></el-table-column>
 
-                  <el-table-column prop="address" label="里程"></el-table-column>
-                  <el-table-column prop="address" label="涉及路费"></el-table-column>
-                  <el-table-column prop="address" label="奖励金额"></el-table-column>
-                  <el-table-column prop="address" label="优惠方式"></el-table-column>
-                  <el-table-column prop="address" label="开始时间"></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="里程"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="涉及路费"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="奖励金额"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="优惠方式"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="开始时间"
+                  ></el-table-column>
 
-                  <el-table-column prop="address" label="结束时间"></el-table-column>
-                  <el-table-column prop="address" label="审批状态"></el-table-column>
-                  <el-table-column prop="address" label="审批"></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="结束时间"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="审批状态"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="审批"
+                  ></el-table-column>
                 </el-table>
               </div>
             </el-tab-pane>

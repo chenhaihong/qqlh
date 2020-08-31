@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="UserTag container">
@@ -19,12 +18,17 @@
               <el-table-column prop="note" label="备注"></el-table-column>
               <el-table-column label="操作">
                 <template scope="scope">
-                  <el-button size="small" @click="onShowEditFormClick(scope.$index, scope.row)">编辑</el-button>
+                  <el-button
+                    size="small"
+                    @click="onShowEditFormClick(scope.$index, scope.row)"
+                    >编辑</el-button
+                  >
                   <el-button
                     size="small"
                     type="danger"
                     @click="onDeleteTagClick(scope.$index, scope.row)"
-                  >删除</el-button>
+                    >删除</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>
@@ -40,14 +44,24 @@
         <div class="content">
           <el-form ref="formAdd" :model="formAdd" label-width="120px">
             <el-form-item label="标签名">
-              <el-input v-model="formAdd.name" placeholder="请输入标签名" style="width: 200px;"></el-input>
+              <el-input
+                v-model="formAdd.name"
+                placeholder="请输入标签名"
+                style="width: 200px;"
+              ></el-input>
             </el-form-item>
             <el-form-item label="备注">
-              <el-input v-model="formAdd.note" placeholder="请输入备注" style="width: 200px;"></el-input>
+              <el-input
+                v-model="formAdd.note"
+                placeholder="请输入备注"
+                style="width: 200px;"
+              ></el-input>
             </el-form-item>
             <el-form-item>
               <el-button @click="onQuitAddFormClick">取消</el-button>
-              <el-button type="primary" @click="onSubmitAddFormClick">添加</el-button>
+              <el-button type="primary" @click="onSubmitAddFormClick"
+                >添加</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -61,14 +75,24 @@
         <div class="content">
           <el-form ref="formAdd" :model="formEdit" label-width="120px">
             <el-form-item label="标签名">
-              <el-input v-model="formEdit.name" placeholder="请输入标签名" style="width: 200px;"></el-input>
+              <el-input
+                v-model="formEdit.name"
+                placeholder="请输入标签名"
+                style="width: 200px;"
+              ></el-input>
             </el-form-item>
             <el-form-item label="备注">
-              <el-input v-model="formEdit.note" placeholder="请输入备注" style="width: 200px;"></el-input>
+              <el-input
+                v-model="formEdit.note"
+                placeholder="请输入备注"
+                style="width: 200px;"
+              ></el-input>
             </el-form-item>
             <el-form-item>
               <el-button @click="onQuitEditFormClick">取消</el-button>
-              <el-button type="primary" @click="onSubmitEditFormClick">保存</el-button>
+              <el-button type="primary" @click="onSubmitEditFormClick"
+                >保存</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -76,7 +100,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {

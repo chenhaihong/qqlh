@@ -5,12 +5,12 @@
   </div>
 </template>
 <script>
-import DataPanel from "@/components/DataPanel/index.vue";
-import ChartPanel from "@/components/ChartPanel/index.vue";
-
 export default {
   name: "DataView",
-  components: { DataPanel, ChartPanel }
+  components: {
+    DataPanel: () => import("@/components/DataPanel/index.vue"),
+    ChartPanel: () => import("@/components/ChartPanel/index.vue")
+  }
 };
 </script>
 <style lang="less" scoped>

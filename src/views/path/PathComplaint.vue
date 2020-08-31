@@ -10,10 +10,22 @@
                   <div class="table">
                     <el-table :data="allData" stripe>
                       <el-table-column prop="id" label="ID"></el-table-column>
-                      <el-table-column prop="user" label="发起人"></el-table-column>
-                      <el-table-column prop="content" label="投诉内容"></el-table-column>
-                      <el-table-column prop="admin" label="审批人"></el-table-column>
-                      <el-table-column prop="time" label="时间"></el-table-column>
+                      <el-table-column
+                        prop="user"
+                        label="发起人"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="content"
+                        label="投诉内容"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="admin"
+                        label="审批人"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="time"
+                        label="时间"
+                      ></el-table-column>
                     </el-table>
                   </div>
                   <div class="pagination">
@@ -32,10 +44,22 @@
                   <div class="table">
                     <el-table :data="completeData" stripe>
                       <el-table-column prop="id" label="ID"></el-table-column>
-                      <el-table-column prop="user" label="发起人"></el-table-column>
-                      <el-table-column prop="content" label="投诉内容"></el-table-column>
-                      <el-table-column prop="admin" label="审批人"></el-table-column>
-                      <el-table-column prop="time" label="时间"></el-table-column>
+                      <el-table-column
+                        prop="user"
+                        label="发起人"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="content"
+                        label="投诉内容"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="admin"
+                        label="审批人"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="time"
+                        label="时间"
+                      ></el-table-column>
                     </el-table>
                   </div>
                   <div class="pagination">
@@ -54,10 +78,22 @@
                   <div class="table">
                     <el-table :data="waitingData" stripe>
                       <el-table-column prop="id" label="ID"></el-table-column>
-                      <el-table-column prop="user" label="发起人"></el-table-column>
-                      <el-table-column prop="content" label="投诉内容"></el-table-column>
-                      <el-table-column prop="admin" label="审批人"></el-table-column>
-                      <el-table-column prop="time" label="时间"></el-table-column>
+                      <el-table-column
+                        prop="user"
+                        label="发起人"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="content"
+                        label="投诉内容"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="admin"
+                        label="审批人"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="time"
+                        label="时间"
+                      ></el-table-column>
                     </el-table>
                   </div>
                   <div class="pagination">

@@ -5,22 +5,41 @@
         <h1 class="title">折扣条件</h1>
         <div class="discount">
           <span>行程记录在满足下面的一个条件后，进行打</span>
-          <el-input-number v-model="discount" :step="0.5" :min="1" :max="10" size="small"></el-input-number>
+          <el-input-number
+            v-model="discount"
+            :step="0.5"
+            :min="1"
+            :max="10"
+            size="small"
+          ></el-input-number>
           <span>折</span>
         </div>
 
         <el-row class="rules">
           <el-col :span="isShowMap ? 14 : 24">
             <div class="rule">
-              <el-radio class="radio" v-model="radio" label="1">规则1：</el-radio>
+              <el-radio class="radio" v-model="radio" label="1"
+                >规则1：</el-radio
+              >
               <span>在本公路上消费满</span>
-              <el-input v-model="money" size="small" placeholder="请输入金额" style="width: 100px;"></el-input>
+              <el-input
+                v-model="money"
+                size="small"
+                placeholder="请输入金额"
+                style="width: 100px;"
+              ></el-input>
               <span>元，可以享受优惠。</span>
             </div>
             <div class="rule">
-              <el-radio class="radio" v-model="radio" label="2">规则2：</el-radio>
+              <el-radio class="radio" v-model="radio" label="2"
+                >规则2：</el-radio
+              >
               <span>选择本优惠生效路段，起始路段为：</span>
-              <el-select v-model="startRoad" placeholder="请选择" style="width: 160px;">
+              <el-select
+                v-model="startRoad"
+                placeholder="请选择"
+                style="width: 160px;"
+              >
                 <el-option
                   v-for="item in startRoads"
                   :key="item.value"
@@ -29,7 +48,11 @@
                 ></el-option>
               </el-select>
               <span>，结果路段为：</span>
-              <el-select v-model="endRoad" placeholder="请选择" style="width: 160px;">
+              <el-select
+                v-model="endRoad"
+                placeholder="请选择"
+                style="width: 160px;"
+              >
                 <el-option
                   v-for="item in endRoads"
                   :key="item.value"
@@ -39,7 +62,9 @@
               </el-select>
             </div>
             <div class="rule">
-              <el-radio class="radio" v-model="radio" label="3">规则3：</el-radio>
+              <el-radio class="radio" v-model="radio" label="3"
+                >规则3：</el-radio
+              >
               <span>选择本优惠生效时间，起始时间为：</span>
               <el-date-picker
                 v-model="date1"
@@ -58,9 +83,15 @@
               ></el-date-picker>
             </div>
             <div class="rule">
-              <el-radio class="radio" v-model="radio" label="4">规则4：</el-radio>
+              <el-radio class="radio" v-model="radio" label="4"
+                >规则4：</el-radio
+              >
               <span>选择本优惠生效车型：</span>
-              <el-select v-model="vehicle.value" placeholder="请选择车型" style="width: 160px;">
+              <el-select
+                v-model="vehicle.value"
+                placeholder="请选择车型"
+                style="width: 160px;"
+              >
                 <el-option-group
                   v-for="group in vehicle.groups"
                   :label="group.label"
@@ -76,7 +107,9 @@
               </el-select>
             </div>
             <div class="rule">
-              <el-radio class="radio" v-model="radio" label="5">规则5：</el-radio>
+              <el-radio class="radio" v-model="radio" label="5"
+                >规则5：</el-radio
+              >
               <span>当全程出发地为：（可多选）</span>
               <el-select
                 v-model="cityStart.selected"
@@ -96,13 +129,16 @@
               <transition name="fade">
                 <span
                   v-if="cityStart.selected.length"
-                  @click="cityStart.selected=[]"
+                  @click="cityStart.selected = []"
                   style="margin-left: 5px; cursor: pointer;"
-                >清空</span>
+                  >清空</span
+                >
               </transition>
             </div>
             <div class="rule">
-              <el-radio class="radio" v-model="radio" label="6">规则6：</el-radio>
+              <el-radio class="radio" v-model="radio" label="6"
+                >规则6：</el-radio
+              >
               <span>当全程目的地为：（可多选）</span>
               <el-select
                 v-model="cityEnd.selected"
@@ -122,9 +158,10 @@
               <transition name="fade">
                 <span
                   v-if="cityEnd.selected.length"
-                  @click="cityEnd.selected=[]"
+                  @click="cityEnd.selected = []"
                   style="margin-left: 5px; cursor: pointer;"
-                >清空</span>
+                  >清空</span
+                >
               </transition>
             </div>
           </el-col>
@@ -161,7 +198,7 @@
 
 <script>
 // import { WELCOME_GD_DISTRICT_ANALYSIS } from "../../../api/index.js";
-// let gdGeoJson = require("./44.json");
+// let gdGeoJson = require("./gdGeo.json");
 
 export default {
   name: "RebateDetail",
@@ -446,7 +483,7 @@ export default {
       }
     };
 
-    import("@/config/44.json")
+    import("@/config/gdGeo.json")
       .then(data => {
         this.map = Object.freeze(data.default);
       })

@@ -7,10 +7,10 @@
       <ul class="userBox-ul">
         <li class="profileBox">
           <div class="profile">
-            <img class="head" :src="head" />
+            <img class="head" :src="avatar" />
             <div class="roleInfo">
-              <p class="name">{{name}}</p>
-              <p class="role">{{role}}</p>
+              <p class="name">{{ nickname }}</p>
+              <p class="role">{{ roleName }}</p>
             </div>
           </div>
         </li>
@@ -24,17 +24,17 @@
 </template>
 
 <script>
-// import { GLOBAL_CLEAR_USER } from "../../../../store/global/mutation-types.js";
-
 export default {
   name: "HeadNav",
-  data: () => ({
-    role: "广东 系统管理员",
-    head: "/assets/_bootstrap/home/image/headNav/profile.png"
-  }),
   computed: {
-    name() {
-      return this.$store.state.global.user.username || "匿名用户";
+    nickname() {
+      return this.$store.state.auth.userinfo.nickname;
+    },
+    avatar() {
+      return this.$store.state.auth.userinfo.avatar;
+    },
+    roleName() {
+      return this.$store.state.auth.userinfo.roleName;
     }
   },
   watch: {},
@@ -47,14 +47,9 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          this.$router.push("/login");
-          // USER_QUIT({
-          //   success: response => {
-          //     this.$store.dispatch(GLOBAL_CLEAR_USER);
-          //     this.$router.push("/login");
-          //   }
-          // });
+        .then(async () => {
+          const [err] = await this.$store.dispatch("auth/logout");
+          if (!err) this.$router.push("/login");
         })
         .catch(() => {});
     }

@@ -1,11 +1,15 @@
-
 <template>
   <div>
     <section class="UserList container">
       <section class="box">
         <h1 class="title">搜索条件</h1>
         <div class="content" style="margin-bottom: 0">
-          <el-form :inline="true" :model="conditionForm" ref="conditionForm" label-width="100px">
+          <el-form
+            :inline="true"
+            :model="conditionForm"
+            ref="conditionForm"
+            label-width="100px"
+          >
             <el-form-item label="车型" prop="carType">
               <el-checkbox-group v-model="conditionForm.carType">
                 <el-checkbox
@@ -13,7 +17,8 @@
                   :label="item.value"
                   :key="item.value"
                   name="carType"
-                >{{item.label}}</el-checkbox>
+                  >{{ item.label }}</el-checkbox
+                >
               </el-checkbox-group>
               <el-checkbox-group v-model="conditionForm.carType">
                 <el-checkbox
@@ -21,7 +26,8 @@
                   :label="item.value"
                   :key="item.value"
                   name="carType"
-                >{{item.label}}</el-checkbox>
+                  >{{ item.label }}</el-checkbox
+                >
               </el-checkbox-group>
             </el-form-item>
             <br />
@@ -32,7 +38,8 @@
                   :label="item.id"
                   :key="item.id"
                   name="tag"
-                >{{item.name}}</el-checkbox>
+                  >{{ item.name }}</el-checkbox
+                >
               </el-checkbox-group>
             </el-form-item>
             <br />
@@ -60,7 +67,9 @@
               </el-col>
             </el-form-item>
             <el-form-item>
-              <el-button @click="resetForm" style="margin-left: 50px">重置</el-button>
+              <el-button @click="resetForm" style="margin-left: 50px"
+                >重置</el-button
+              >
               <el-button type="primary" @click="submitForm">立即搜索</el-button>
             </el-form-item>
           </el-form>
@@ -77,21 +86,46 @@
               <el-table-column prop="carNO" label="车牌号"></el-table-column>
               <el-table-column prop="carType" label="车型"></el-table-column>
 
-              <el-table-column prop="firstTime" label="首次行程时间"></el-table-column>
-              <el-table-column prop="lastTime" label="最近行程时间"></el-table-column>
-              <el-table-column prop="totalMileage" label="累计行程"></el-table-column>
+              <el-table-column
+                prop="firstTime"
+                label="首次行程时间"
+              ></el-table-column>
+              <el-table-column
+                prop="lastTime"
+                label="最近行程时间"
+              ></el-table-column>
+              <el-table-column
+                prop="totalMileage"
+                label="累计行程"
+              ></el-table-column>
 
-              <el-table-column prop="runTimes" label="行驶次数"></el-table-column>
-              <el-table-column prop="totalToll" label="涉及总路费"></el-table-column>
-              <el-table-column prop="totalReward" label="总奖励金额"></el-table-column>
+              <el-table-column
+                prop="runTimes"
+                label="行驶次数"
+              ></el-table-column>
+              <el-table-column
+                prop="totalToll"
+                label="涉及总路费"
+              ></el-table-column>
+              <el-table-column
+                prop="totalReward"
+                label="总奖励金额"
+              ></el-table-column>
 
-              <el-table-column prop="passingRate" label="审批通过率"></el-table-column>
+              <el-table-column
+                prop="passingRate"
+                label="审批通过率"
+              ></el-table-column>
               <el-table-column prop="tag" label="用户标签"></el-table-column>
               <el-table-column prop="note" label="用户备注"></el-table-column>
 
               <el-table-column label="操作">
                 <template scope="scope">
-                  <el-button size="small" @click="onShowUserEditClick(scope.row.id)">编辑</el-button>
+                  <el-button
+                    size="small"
+                    @click="onShowUserEditClick(scope.row.id)"
+                    >编辑</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>

@@ -10,27 +10,12 @@
         type="text"
         placeholder="用户名"
         v-model="username"
-        v-focus="usernameFocus"
-        @input="check"
-        @blur="usernameFocus = false"
+        v-focus
         @keyup.enter="login"
       />
-      <input
-        class="input"
-        type="password"
-        placeholder="密码"
-        v-model="password"
-        v-focus="passwordFocus"
-        @input="check"
-        @blur="passwordFocus = false"
-        @keyup.enter="login"
-      />
-      <button
-        class="btn"
-        v-bind:class="{ isInRequest: isInRequest, cantRequest: cantRequest }"
-        @click="login"
-      >
-        <template v-if="isInRequest">
+      <input class="input" type="password" placeholder="密码" v-model="password" @keyup.enter="login" />
+      <button class="btn" :class="{ disabled: disabled }" @click="login">
+        <template v-if="isLoading">
           <i class="el-icon-loading"></i> 登陆中
         </template>
         <template v-else>登录</template>
@@ -41,106 +26,44 @@
 </template>
 
 <script>
-// import { GLOBAL_SET_USER } from "@/store/global/mutation-types";
-
 export default {
-  name: "login",
+  name: "Login",
   data: () => ({
+    isLoading: false,
     username: "haihong",
-    password: "",
-
-    usernameFocus: true,
-    passwordFocus: false,
-
-    cantRequest: true,
-    isInRequest: false
+    password: "123123"
   }),
+  computed: {
+    disabled() {
+      return this.isLoading || !this.username || !this.password;
+    }
+  },
   directives: {
     focus: {
-      inserted(el, { value }) {
-        if (value) {
-          el.focus();
-        }
-      },
-      update(el, { value }) {
-        if (value) {
-          el.focus();
-        }
+      inserted(el) {
+        el.focus();
       }
     }
   },
   methods: {
-    check() {
-      this.cantRequest = !(this.username && this.password);
-    },
-
-    login() {
-      let username = this.username;
-      let password = this.password;
-
-      if (!username) {
-        this.$message({
-          type: "warning",
-          message: `请输入用户名`
-        });
-
-        this.usernameFocus = true;
-
-        return false;
-      }
-
-      if (!password) {
-        this.$message({
-          type: "warning",
-          message: `请输入密码`
-        });
-
-        this.passwordFocus = true;
-
-        return false;
-      }
-
-      this.isInRequest = true;
-      this.$router.replace("/home");
-      this.isInRequest = false;
-
-      //TODO 请求登录接口
-      // USER_LOGIN({
-      //   data: {
-      //     username,
-      //     password
-      //   },
-      //   success: response => {
-      //     if (response.success == true) {
-      //       this.$store.dispatch(GLOBAL_SET_USER, {
-      //         username: username,
-      //         password: password,
-      //         token: response.token
-      //       });
-
-      //       this.$router.push("/home");
-      //     } else {
-      //       this.$message({
-      //         type: "error",
-      //         message: `请求失败，请重试`
-      //       });
-
-      //       this.isInRequest = false;
-      //     }
-      //   },
-      //   fail: () => {
-      //     this.$message({
-      //       type: "warning",
-      //       message: `请求失败，请重试`
-      //     });
-
-      //     this.isInRequest = false;
-      //   }
-      // });
+    async login() {
+      if (this.disabled) return;
+      this.isLoading = true;
+      const { username, password } = this;
+      const [err] = await this.$store.dispatch("auth/login", {
+        username,
+        password
+      });
+      this.isLoading = false;
+      if (err) return;
+      this.$message({
+        type: "success",
+        message: `登录成功`
+      });
+      const { redirect } = this.$route.query;
+      this.$router.push(redirect ? decodeURIComponent(redirect) : "/");
     }
-  },
-  beforeCreate() {},
-  created() {}
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -177,7 +100,7 @@ export default {
     line-height: 46px;
     font-size: 14px;
     text-indent: 12px;
-    color: #ccc;
+    // color: #ccc;
     border: solid 1px #d9d9d9;
     border-radius: 3px;
     outline: none;
@@ -202,12 +125,7 @@ export default {
     border-radius: 3px;
     cursor: pointer;
 
-    &.cantRequest {
-      background: #cccccc;
-      cursor: default;
-    }
-
-    &.isInRequest {
+    &.disabled {
       background: #cccccc;
       cursor: default;
     }

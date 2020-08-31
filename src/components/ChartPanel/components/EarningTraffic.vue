@@ -29,7 +29,7 @@
 </template>
 
 <script>
-// import { WELCOME_EARNING_TRAFFIC_FLOW } from "../../../api/index.js";
+import { getEarningTrafficData } from "@/api/dataView";
 
 import isLeapYear from "@/helpers/isLeapYear";
 
@@ -247,23 +247,20 @@ export default {
       }
     }
   },
-  mounted() {
-    this.loading = false;
-
-    // WELCOME_EARNING_TRAFFIC_FLOW({
-    //   success: response => {
-    //     let data = response.data;
-    //     this.earningLastMonth = data.earningLastMonth;
-    //     this.earningThisMonth = data.earningThisMonth;
-    //     this.earningLastYear = data.earningLastYear;
-    //     this.earningThisYear = data.earningThisYear;
-    //     this.trafficFLowLastMonth = data.trafficFLowLastMonth;
-    //     this.trafficFLowThisMonth = data.trafficFLowThisMonth;
-    //     this.trafficFLowLastYear = data.trafficFLowLastYear;
-    //     this.trafficFLowThisYear = data.trafficFLowThisYear;
-    //     this.loading = false;
-    //   }
-    // });
+  async created() {
+    // this.loading = false;
+    const [err, data] = await getEarningTrafficData();
+    if (!err) {
+      this.earningLastMonth = data.earningLastMonth;
+      this.earningThisMonth = data.earningThisMonth;
+      this.earningLastYear = data.earningLastYear;
+      this.earningThisYear = data.earningThisYear;
+      this.trafficFLowLastMonth = data.trafficFLowLastMonth;
+      this.trafficFLowThisMonth = data.trafficFLowThisMonth;
+      this.trafficFLowLastYear = data.trafficFLowLastYear;
+      this.trafficFLowThisYear = data.trafficFLowThisYear;
+      this.loading = false;
+    }
   }
 };
 </script>

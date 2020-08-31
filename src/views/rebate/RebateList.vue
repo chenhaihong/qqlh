@@ -1,4 +1,3 @@
-
 <template>
   <div class="RebateList">
     <el-row>
@@ -10,25 +9,50 @@
                 <div class="table">
                   <el-table :data="allData" stripe @row-click="rowClick">
                     <el-table-column prop="id" label="规则ID"></el-table-column>
-                    <el-table-column prop="type" label="优惠方式"></el-table-column>
-                    <el-table-column prop="content" label="优惠内容"></el-table-column>
-                    <el-table-column prop="vehicle" label="生效车类"></el-table-column>
+                    <el-table-column
+                      prop="type"
+                      label="优惠方式"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="content"
+                      label="优惠内容"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="vehicle"
+                      label="生效车类"
+                    ></el-table-column>
 
-                    <el-table-column prop="time" label="时间段"></el-table-column>
-                    <el-table-column prop="road" label="涉及路段"></el-table-column>
-                    <el-table-column prop="times" label="触发次数"></el-table-column>
+                    <el-table-column
+                      prop="time"
+                      label="时间段"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="road"
+                      label="涉及路段"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="times"
+                      label="触发次数"
+                    ></el-table-column>
                     <el-table-column prop="running" label="是否生效">
                       <template scope="scope">
                         <div
                           class="switcher"
-                          :class="{'switcher-begin': !scope.row.running, 'switcher-end': scope.row.running}"
+                          :class="{
+                            'switcher-begin': !scope.row.running,
+                            'switcher-end': scope.row.running
+                          }"
                           @click.prevent.stop="switchClick(scope)"
                         >
                           <label class="switcher-aLabel"></label>
                           <div class="switcher-bar">
                             <div
                               class="switcher-bar-radius"
-                              :style="{ 'background-color': scope.row.running ? '#3CD341' : '#cccccc'}"
+                              :style="{
+                                'background-color': scope.row.running
+                                  ? '#3CD341'
+                                  : '#cccccc'
+                              }"
                             ></div>
                           </div>
                           <label class="switcher-bLabel"></label>
@@ -53,25 +77,50 @@
                 <div class="table">
                   <el-table :data="runningData" stripe @row-click="rowClick">
                     <el-table-column prop="id" label="规则ID"></el-table-column>
-                    <el-table-column prop="type" label="优惠方式"></el-table-column>
-                    <el-table-column prop="content" label="优惠内容"></el-table-column>
-                    <el-table-column prop="vehicle" label="生效车类"></el-table-column>
+                    <el-table-column
+                      prop="type"
+                      label="优惠方式"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="content"
+                      label="优惠内容"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="vehicle"
+                      label="生效车类"
+                    ></el-table-column>
 
-                    <el-table-column prop="time" label="时间段"></el-table-column>
-                    <el-table-column prop="road" label="涉及路段"></el-table-column>
-                    <el-table-column prop="times" label="触发次数"></el-table-column>
+                    <el-table-column
+                      prop="time"
+                      label="时间段"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="road"
+                      label="涉及路段"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="times"
+                      label="触发次数"
+                    ></el-table-column>
                     <el-table-column prop="running" label="是否生效">
                       <template scope="scope">
                         <div
                           class="switcher"
-                          :class="{'switcher-begin': !scope.row.running, 'switcher-end': scope.row.running}"
+                          :class="{
+                            'switcher-begin': !scope.row.running,
+                            'switcher-end': scope.row.running
+                          }"
                           @click.prevent.stop="switchClick(scope)"
                         >
                           <label class="switcher-aLabel"></label>
                           <div class="switcher-bar">
                             <div
                               class="switcher-bar-radius"
-                              :style="{ 'background-color': scope.row.running ? '#3CD341' : '#cccccc'}"
+                              :style="{
+                                'background-color': scope.row.running
+                                  ? '#3CD341'
+                                  : '#cccccc'
+                              }"
                             ></div>
                           </div>
                           <label class="switcher-bLabel"></label>

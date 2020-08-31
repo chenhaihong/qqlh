@@ -54,7 +54,7 @@
           </el-col>
           <el-col :span="6">
             <div class="name">奖励点：</div>
-            <p class="value">{{2}} / {{10}}</p>
+            <p class="value">{{ 2 }} / {{ 10 }}</p>
           </el-col>
         </el-row>
       </div>

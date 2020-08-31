@@ -93,7 +93,11 @@ export default {
   // },
   mounted() {
     this.updateOption();
-    
+
+    if (this.loading) {
+      this.oEcharts.showLoading();
+    }
+
     const { events } = this;
     if (events) {
       for (let e in events) {

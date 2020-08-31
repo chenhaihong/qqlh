@@ -18,8 +18,7 @@
   </div>
 </template>
 <script>
-// import {TEcharts} from '../../index.js';
-// import { WELCOME_GD_DISTRICT_ANALYSIS } from "../../../api/index.js";
+import { getDistrictAnalysisData } from "@/api/dataView";
 
 export default {
   name: "DistrictAnalysis",
@@ -149,29 +148,34 @@ export default {
   },
   methods: {},
   watch: {},
-  created() {
-    this.loading = false;
-
-    import("@/config/44.json")
+  async created() {
+    import("@/config/gdGeo.json")
       .then(data => {
         this.map = Object.freeze(data.default);
       })
       .catch(() => {});
 
-    // WELCOME_GD_DISTRICT_ANALYSIS({
-    //   success: response => {
-    //     let data = response.data;
+    const [err, data] = await getDistrictAnalysisData();
+    if (!err) {
+      this.loading = false;
+      this.truckAll = data.truckAll;
+      this.truckStart = data.truckStart;
+      this.truckEnd = data.truckEnd;
 
-    //     this.truckAll = data.truckAll;
-    //     this.truckStart = data.truckStart;
-    //     this.truckEnd = data.truckEnd;
-
-    //     this.busAll = data.busAll;
-    //     this.busStart = data.busStart;
-    //     this.busEnd = data.busEnd;
-    //   }
-    // });
+      this.busAll = data.busAll;
+      this.busStart = data.busStart;
+      this.busEnd = data.busEnd;
+    }
   }
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+// .contentBox {
+//   // @deep: ~">>>";
+//   margin: -10px;
+
+//   // @{deep} #mapDistrictAnalysis {
+//   //   margin: 0 -10px;
+//   // }
+// }
+</style>

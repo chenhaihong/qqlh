@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <section class="AdminRole container">
@@ -18,28 +17,48 @@
               <el-table-column prop="name" label="等级"></el-table-column>
               <el-table-column prop="rebate" label="管理优惠规则">
                 <template scope="scope">
-                  <el-switch on-text off-text v-model="scope.row.rebate"></el-switch>
+                  <el-switch
+                    on-text
+                    off-text
+                    v-model="scope.row.rebate"
+                  ></el-switch>
                 </template>
               </el-table-column>
               <el-table-column prop="path" label="行程审核">
                 <template scope="scope">
-                  <el-switch on-text off-text v-model="scope.row.path"></el-switch>
+                  <el-switch
+                    on-text
+                    off-text
+                    v-model="scope.row.path"
+                  ></el-switch>
                 </template>
               </el-table-column>
 
               <el-table-column prop="user" label="管理员工">
                 <template scope="scope">
-                  <el-switch on-text off-text v-model="scope.row.user"></el-switch>
+                  <el-switch
+                    on-text
+                    off-text
+                    v-model="scope.row.user"
+                  ></el-switch>
                 </template>
               </el-table-column>
               <el-table-column prop="blacklist" label="黑名单用户">
                 <template scope="scope">
-                  <el-switch on-text off-text v-model="scope.row.blacklist"></el-switch>
+                  <el-switch
+                    on-text
+                    off-text
+                    v-model="scope.row.blacklist"
+                  ></el-switch>
                 </template>
               </el-table-column>
               <el-table-column prop="data" label="观看数据">
                 <template scope="scope">
-                  <el-switch on-text off-text v-model="scope.row.data"></el-switch>
+                  <el-switch
+                    on-text
+                    off-text
+                    v-model="scope.row.data"
+                  ></el-switch>
                 </template>
               </el-table-column>
             </el-table>
@@ -55,7 +74,11 @@
         <div class="content">
           <el-form ref="formAdd" :model="formAdd" label-width="120px">
             <el-form-item label="角色名">
-              <el-input v-model="formAdd.name" placeholder="请输入角色名" style="width: 200px;"></el-input>
+              <el-input
+                v-model="formAdd.name"
+                placeholder="请输入角色名"
+                style="width: 200px;"
+              ></el-input>
             </el-form-item>
             <el-form-item label="管理优惠规则">
               <el-switch on-text off-text v-model="formAdd.rebate"></el-switch>
@@ -67,7 +90,11 @@
               <el-switch on-text off-text v-model="formAdd.user"></el-switch>
             </el-form-item>
             <el-form-item label="黑名单用户">
-              <el-switch on-text off-text v-model="formAdd.blacklist"></el-switch>
+              <el-switch
+                on-text
+                off-text
+                v-model="formAdd.blacklist"
+              ></el-switch>
             </el-form-item>
             <el-form-item label="观看数据">
               <el-switch on-text off-text v-model="formAdd.data"></el-switch>

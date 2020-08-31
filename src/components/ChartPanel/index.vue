@@ -26,14 +26,6 @@
   </div>
 </template>
 <script>
-import EarningTraffic from "./components/EarningTraffic.vue";
-import TimeDuration from "./components/TimeDuration.vue";
-
-import DistrictAnalysis from "./components/DistrictAnalysis.vue";
-
-import StationAnalysis from "./components/StationAnalysis.vue";
-import VehicleTypeNews from "./components/VehicleTypeNews.vue";
-
 export default {
   name: "ChartPanel",
   data: () => ({
@@ -47,13 +39,13 @@ export default {
   }),
   props: [],
   components: {
-    EarningTraffic,
-    TimeDuration,
+    EarningTraffic: () => import("./components/EarningTraffic.vue"),
+    TimeDuration: () => import("./components/TimeDuration.vue"),
 
-    DistrictAnalysis,
+    DistrictAnalysis: () => import("./components/DistrictAnalysis.vue"),
 
-    StationAnalysis,
-    VehicleTypeNews
+    StationAnalysis: () => import("./components/StationAnalysis.vue"),
+    VehicleTypeNews: () => import("./components/VehicleTypeNews.vue")
   },
   computed: {},
   watch: {},
