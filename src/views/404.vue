@@ -39,9 +39,12 @@ export default {
 
 <style scoped style="less">
 .Error404 {
-  margin: 200px auto 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   width: 400px;
   text-align: center;
+  transform: translate(-50%, -60%);
 }
 
 h1 {

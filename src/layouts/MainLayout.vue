@@ -1,14 +1,20 @@
 <template>
   <div class="mainLayout">
-    <head-nav class="head-nav" />
-    <div class="body">
-      <left-menu class="left-menu" />
+    <Head class="mainLayout__head" />
+    <div class="mainLayout__body">
+      <LeftMenu class="left-menu" />
       <div class="right-content">
-        <breadcrumb class="Breadcrumb" />
-        <!-- <transition :name="transitionName"> -->
-        <transition name="slide" mode="out-in">
-          <router-view class="child-view" />
-        </transition>
+        <Breadcrumb />
+        <div class="child-view">
+          <transition :name="transitionName">
+            <keep-alive>
+              <router-view v-if="isKeepAlive" />
+            </keep-alive>
+          </transition>
+          <transition :name="transitionName">
+            <router-view v-if="!isKeepAlive" />
+          </transition>
+        </div>
       </div>
     </div>
   </div>
@@ -17,86 +23,112 @@
 <script>
 export default {
   name: "MainLayout",
-  // data() {
-  //   return {
-  //     transitionName: "slide-left"
-  //   };
-  // },
   components: {
-    HeadNav: () => import("./components/HeadNav.vue"),
+    Head: () => import("./components/Head.vue"),
     LeftMenu: () => import("./components/LeftMenu.vue"),
     Breadcrumb: () => import("./components/Breadcrumb.vue")
+  },
+  data() {
+    return {
+      transitionName: "cv-slide-left"
+    };
+  },
+  computed: {
+    isKeepAlive() {
+      return !!this.$route.meta.keepAlive;
+    }
+  },
+  watch: {
+    $route() {
+      const { __routerType__ } = this.$router;
+      this.transitionName =
+        __routerType__ === "forward" ? "cv-slide-left" : "cv-slide-right";
+    }
   }
-  // watch: {
-  //   $route(to, from) {
-  //     const toDepth = to.path.split("/").length;
-  //     const fromDepth = from.path.split("/").length;
-  //     this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-  //   }
-  // }
 };
 </script>
 <style lang="less" scoped>
 .mainLayout {
-  @header-height: 60px;
-  @leftMenu-width: 200px;
-  @breadcrumb-height: 57px;
-
   position: relative;
   box-sizing: border-box;
+}
+.mainLayout__head {
+  z-index: @head-z-index;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: @header-height;
+  background-color: @header-background-color;
+}
 
-  .head-nav {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: @header-height;
-    background-color: #43a9f1;
-  }
+.mainLayout__body {
+  z-index: @body-z-index;
+  position: fixed;
+  top: @header-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
-  .body {
-    z-index: 2000;
+  .left-menu {
+    z-index: @leftMenu-z-index;
     position: fixed;
     top: @header-height;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
+    width: @leftMenu-width;
+    height: calc(100% - @header-height);
+    background-color: @leftMenu-background-color;
+    overflow: hidden auto;
+  }
 
-    .left-menu {
-      z-index: 100;
-      position: relative;
-      width: @leftMenu-width;
-      //background: #eef1f6;
-      background: #96d0f8;
-      //border-right: 1px solid #96D0F8;
-      overflow: hidden auto;
-      flex-shrink: 0;
-    }
+  .right-content {
+    z-index: @rightContent-z-index;
+    position: relative;
+    margin-left: @leftMenu-width;
+    height: 100%;
+    background: @rightContent-background-color;
+    overflow: auto;
 
-    .right-content {
-      position: relative;
-      width: 100%;
-      background: #ffffff;
+    .child-view {
+      position: absolute;
+      top: @breadcrumb-height;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: @childView-padding;
+      background: @childView-background-color;
+      box-sizing: border-box;
       overflow: auto;
-
-      .child-view {
-        position: absolute;
-        top: @breadcrumb-height;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        //width: 100%;
-        //height: 100%;
-        background: #f2f2f2;
-        overflow: auto;
-        transition: opacity 0.5s cubic-bezier(0.55, 0, 0.1, 1),
-          transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
-      }
     }
   }
+}
+</style>
+
+<style lang="less">
+// slide-left
+.cv-slide-left-enter {
+  opacity: 0;
+  transform: translate(20px, 0);
+}
+.cv-slide-left-enter-active {
+  transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1),
+    transform 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.cv-slide-left-enter-to {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+// slide-right
+.cv-slide-right-enter {
+  opacity: 0;
+  transform: translate(-20px, 0);
+}
+.cv-slide-right-enter-active {
+  transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1),
+    transform 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.cv-slide-right-enter-to {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 </style>

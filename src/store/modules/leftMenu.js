@@ -5,14 +5,14 @@ import { resolve } from "path";
 export default {
   namespaced: true,
   state: () => ({
-    visibledAddressableRoutes: [], // 可见的、当前用户角色可以访问的routes数据
+    visibledAddressableRoutes: [] // 可见的、当前用户角色可以访问的routes数据
   }),
   mutations: {
     updateVisibledAddressableRoutes(state, { roles }) {
       const routes = getVisibledAddressableRoutes(routes, roles);
       state.visibledAddressableRoutes = Object.freeze(routes);
-    },
-  },
+    }
+  }
 };
 
 // 获取可见的、当前用户角色可以访问的routes数据
@@ -22,10 +22,10 @@ function getVisibledAddressableRoutes(
   basePath = ""
 ) {
   const visibledAddressableRoutes = [];
-  tree.forEach((node) => {
+  tree.forEach(node => {
     // 1 排除hidden的node
     if (node.hidden) return;
-    const { roles: routeRoles = [] } = node;
+    const { roles: routeRoles = [] } = node.meta;
 
     if (
       !routeRoles.length || // 2.1 任意已经登录的角色可以访问

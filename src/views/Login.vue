@@ -1,9 +1,11 @@
 <template>
   <div class="login">
     <div class="wrapper">
+      <img class="login-logo" :src="loginLogo" :alt="name" />
       <p class="slogan">
-        阡阡路惠后台管理系统
-        <br />方便、快捷、精准
+        {{ name }}
+        <br />
+        {{ slogan }}
       </p>
       <input
         class="input"
@@ -13,7 +15,13 @@
         v-focus
         @keyup.enter="login"
       />
-      <input class="input" type="password" placeholder="密码" v-model="password" @keyup.enter="login" />
+      <input
+        class="input"
+        type="password"
+        placeholder="密码"
+        v-model="password"
+        @keyup.enter="login"
+      />
       <button class="btn" :class="{ disabled: disabled }" @click="login">
         <template v-if="isLoading">
           <i class="el-icon-loading"></i> 登陆中
@@ -21,18 +29,59 @@
         <template v-else>登录</template>
       </button>
     </div>
-    <div class="copyright">版权所有 ©2014 广州益车益路软件科技有限公司 粤ICP备05014984号</div>
+    <div class="copyright">
+      {{ copyright }}
+      <br />
+      <a
+        v-if="icpCode"
+        :href="icpLink"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ icpCode }}</a
+      >
+      <template v-if="icpCode && beianCode">
+        <span> | </span>
+      </template>
+      <a
+        v-if="beianCode"
+        :href="beianLink"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ beianCode }}</a
+      >
+    </div>
   </div>
 </template>
 
 <script>
+import setting from "@/setting";
 export default {
   name: "Login",
-  data: () => ({
-    isLoading: false,
-    username: "haihong",
-    password: "123123"
-  }),
+  data: () => {
+    const {
+      name,
+      copyright,
+      loginLogo,
+      slogan,
+      icpCode,
+      icpLink,
+      beianCode,
+      beianLink
+    } = setting;
+    return {
+      name,
+      copyright,
+      loginLogo,
+      slogan,
+      icpCode,
+      icpLink,
+      beianCode,
+      beianLink,
+      isLoading: false,
+      username: "haihong",
+      password: "123123"
+    };
+  },
   computed: {
     disabled() {
       return this.isLoading || !this.username || !this.password;
@@ -72,17 +121,19 @@ export default {
   @glay: #ccc;
 
   position: relative;
-  margin: 100px auto 0 auto;
+  margin: 80px auto 0 auto;
   padding-bottom: 1px;
   width: 500px;
 
   .wrapper {
     margin: auto;
-    padding-top: 150px;
     width: 300px;
     text-align: center;
-    background: url(/assets/_bootstrap/login/image/logo.png) top center
-      no-repeat;
+  }
+
+  .login-logo {
+    margin-bottom: 20px;
+    height: 120px;
   }
 
   .slogan {
@@ -137,6 +188,13 @@ export default {
     font-size: 12px;
     color: @glay;
     text-align: center;
+    line-height: 22px;
+    a {
+      color: @glay;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
 </style>

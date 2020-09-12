@@ -1,132 +1,100 @@
 const path = require("path");
-const fse = require("fs-extra");
 const chalk = require("chalk");
+const setting = require("./src/setting");
+
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
-  chainWebpack: (config) => {
-    config.plugin("html").tap((options) => {
-      options[0].title = "阡阡路惠";
-      return options;
-    });
+  chainWebpack: config => {
+    useHtmlOptions(config);
+    useSvgSprite(config);
+    useAutoImportStyleVaribles(config);
   },
   configureWebpack: {
-    name: "阡阡路惠",
-    devtool:
-      process.env.NODE_ENV === "development" ? "eval-source-map" : "none",
+    name: setting.name,
+    devtool: isDev ? "eval-source-map" : "none",
     externals: {
-      jquery: {
-        root: "jQuery", // 指向全局变量
-      },
+      jquery: { root: "jQuery" }
     },
     resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "src"),
-      },
-    },
+      alias: { "@": path.resolve(__dirname, "src") }
+    }
   },
-  css: {
-    sourceMap: true,
-  },
-  devServer: {
-    // port,
-    open: true,
-    overlay: {
-      warnings: false,
-      errors: true,
-    },
-    // proxy: {},
-    before(app) {
-      app.use(function methodUrlLogger(req, res, next) {
-        // 控制台展示请求
-        const method = chalk.bgGreen(` ${chalk.black(req.method)} `);
-        const url = chalk.green(req.url);
-        console.log(`${method} ${url}`);
-        next();
-      });
-    },
-    after(app) {
-      attachMocks(app); // 添加mock支持
-
-      // if (process.env.VUE_APP_ON_MOCK) {
-      //  attachMocks(app); // 添加mock支持
-      // }
-    },
-  },
+  css: { sourceMap: isDev },
+  ...getDevServerConfig()
 };
 
-/**
- * 添加mock支持。
- *
- * @param {Object} app express服务实例
- */
-function attachMocks(app) {
-  const bodyParser = require("body-parser");
-  // parse application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: true }));
-  // parse application/json
-  app.use(bodyParser.json());
-  app.use(async function(req, res, next) {
-    const mockMap = getMockMap();
-    if (!mockMap.has(req.path)) {
-      return next();
-    }
-
-    const resultMap = mockMap.get(req.path);
-    const upCasedMethod = req.method.toUpperCase();
-    if (!resultMap.has(upCasedMethod)) {
-      return next();
-    }
-
-    const _method = chalk.white.bgMagentaBright(` ${upCasedMethod} `);
-    const _mockFlag = chalk.white.bgMagentaBright(" MOCK ");
-    const _url = chalk.magentaBright(req.url);
-    console.log(`${_method} ${_mockFlag} ${_url}`);
-
-    const result = resultMap.get(upCasedMethod);
-    typeof result === "function"
-      ? res.json(await result(req, res, next))
-      : res.json(result);
+function useHtmlOptions(config) {
+  config.plugin("html").tap(options => {
+    options[0].title = setting.name;
+    return options;
   });
 }
 
-/**
- * 获取mocks对象，构建mocksMap
- */
-function getMockMap() {
-  // （1）mock目录下所有的js文件，把他们全部合并到mocks对象
-  const mockMap = new Map();
+function useSvgSprite(config) {
+  // 1. 配置svg规则排除icons⽬录中svg⽂件处理
+  //    ⽬标给svg规则增加⼀个排除选项exclude: ['path/to/dir/icons']
+  config.module
+    .rule("svg")
+    .exclude.add(path.resolve(__dirname, "src/plugins/icons"));
+  // 2. 新增icons规则，设置svg-sprite-loader处理icons⽬录中的svg
+  config.module
+    .rule("icons")
+    .test(/\.svg$/)
+    .include.add(path.resolve(__dirname, "src/plugins/icons"))
+    .end()
+    .use("svg-sprite-loader")
+    .loader("svg-sprite-loader")
+    .options({ symbolId: "icon-[name]" });
+}
 
-  // （2）确认mock目录
-  const dir = path.resolve(__dirname, "mock");
-  fse.ensureDirSync(dir);
+function useAutoImportStyleVaribles(config) {
+  const types = ["vue-modules", "vue", "normal-modules", "normal"];
+  types.forEach(type =>
+    addStyleResource(config.module.rule("less").oneOf(type))
+  );
+  function addStyleResource(rule) {
+    rule
+      .use("style-resource")
+      .loader("style-resources-loader")
+      .options({
+        patterns: [path.resolve(__dirname, "./src/assets/less/variables.less")]
+      });
+  }
+}
 
-  // （3）构建mocksMap
-  const files = fse.readdirSync(dir);
-  for (const file of files) {
-    const filePath = `${dir}/${file}`;
-    if (fse.statSync(filePath).isFile() && /\.js$/.test(file)) {
-      delete require.cache[require.resolve(filePath)];
-      const list = require(filePath);
-      for (const [
-        methodUrl, // 比如: ' get  /auth/login '
-        result,
-      ] of Object.entries(list)) {
-        const arr = methodUrl.trim().split(" ");
-        const [
-          method, // GET
-          url, // /auth/login
-        ] = [arr[0], arr[arr.length - 1]];
-
-        let resultMap;
-        if (mockMap.has(url)) {
-          resultMap = mockMap.get(url);
-        } else {
-          resultMap = new Map();
-          mockMap.set(url, resultMap);
-        }
-        resultMap.set(method.toUpperCase(), result);
+function getDevServerConfig() {
+  if (!isDev) {
+    return {};
+  }
+  return {
+    devServer: {
+      // port,
+      open: true,
+      overlay: {
+        warnings: false,
+        errors: true
+      },
+      // proxy: {},
+      before(app) {
+        app.use(function methodUrlLogger(req, res, next) {
+          // 控制台展示请求
+          const method = chalk.bgGreen(` ${chalk.black(req.method)} `);
+          const url = chalk.green(req.url);
+          console.log(`${method} ${url}`);
+          next();
+        });
+      },
+      after(app) {
+        console.log("");
+        const { createAttachMocker } = require("@erye/wds-mocker");
+        const attachMocker = createAttachMocker({
+          mockDir: path.resolve(__dirname, "mock"),
+          onUrlencodedParser: true,
+          onJsonBodyParser: true
+        });
+        attachMocker(app);
       }
     }
-  }
-  return mockMap;
+  };
 }

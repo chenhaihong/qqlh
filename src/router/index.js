@@ -9,9 +9,21 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
-router.beforeEach(beforeEach);
+
+router.__fullPathStack__ = [];
+router.__routerType__ = "forward";
+router.beforeEach((to, from, next) => {
+  if (router.__fullPathStack__.includes(to.fullPath)) {
+    router.__routerType__ = to.meta.keepAlive ? "backward" : "forward";
+  } else {
+    router.__fullPathStack__.push(to.fullPath);
+    router.__routerType__ = "forward";
+  }
+  beforeEach(to, from, next);
+});
+
 router.afterEach(afterEach);
 
 export default router;

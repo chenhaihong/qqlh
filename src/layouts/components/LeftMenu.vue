@@ -1,22 +1,28 @@
 <template>
   <div class="left-menu">
     <el-col>
-      <el-menu :router="true" :default-active="defaultActive" :default-openeds="defaultOpeneds">
+      <el-menu
+        :router="true"
+        :default-active="defaultActive"
+        :default-openeds="defaultOpeneds"
+      >
         <template v-for="item in visibledAddressableRoutes">
           <template v-if="item.children && item.children.length">
             <el-submenu :index="item.path" :key="item.path">
               <template slot="title">
-                <i class="iconfont" :class="item.icon" />
+                <svg-icon :iconClass="item.icon" />
                 {{ item.meta.title || item.name }}
               </template>
               <template v-for="v in item.children">
-                <el-menu-item :index="v.path" :key="v.path">{{ v.meta.title || v.name }}</el-menu-item>
+                <el-menu-item :index="v.path" :key="v.path">{{
+                  v.meta.title || v.name
+                }}</el-menu-item>
               </template>
             </el-submenu>
           </template>
           <template v-else>
             <el-menu-item :index="item.path" :key="item.path">
-              <i class="iconfont" :class="item.icon"></i>
+              <svg-icon :iconClass="item.icon" />
               {{ item.meta.title || item.name }}
             </el-menu-item>
           </template>
@@ -63,50 +69,59 @@ export default {
   @{deep} .el-menu {
     background: none;
 
-    a {
-      text-decoration: none;
-    }
-
-    .iconfont {
-      margin-right: 10px;
-    }
-
-    // 一级菜单、二级菜单标题
+    // 一级菜单、二级菜单、二级菜单标题，统一高度
     .el-menu-item,
+    .el-submenu-item,
     .el-submenu__title {
+      padding-top: 0;
+      padding-bottom: 0;
+      height: @leftMenu-menu-height;
+      line-height: @leftMenu-menu-height;
+      color: @leftMenu-menu-color;
+      font-size: @leftMenu-menu-font-size;
       background: none;
       transition: none;
+    }
 
-      &:hover {
-        color: #ffffff;
-        background: #3294e1;
-      }
-
+    // 一级菜单
+    & > .el-menu-item {
+      &:hover,
       &.is-active {
-        color: #ffffff;
-        background: #16659d;
+        color: @leftMenu-menu-active-color;
+        background: @leftMenu-menu-active-background-color;
       }
     }
 
     // 二级菜单
-    .el-submenu .el-menu {
-      background: #6699cc;
+    .el-submenu {
+      color: @leftMenu-submenu-color;
 
-      .el-menu-item {
-        margin-left: 15px;
-        font-size: 12px;
-
+      // 二级菜单标题
+      // 和一级菜单样式一样
+      .el-submenu__title {
         &:hover,
         &.is-active {
-          color: #ffffff;
-          background: #6699cc;
+          color: @leftMenu-menu-active-color;
+          background: @leftMenu-menu-active-background-color;
         }
       }
-    }
+      &.is-active .el-submenu__title {
+        color: @leftMenu-menu-active-color;
+        background: @leftMenu-menu-active-background-color;
+      }
 
-    .el-submenu.is-active .el-submenu__title {
-      color: #ffffff;
-      background: #16659d;
+      // 菜单
+      .el-menu {
+        background: @leftMenu-submenu-background-color;
+
+        .el-menu-item {
+          &:hover,
+          &.is-active {
+            color: @leftMenu-submenu-active-color;
+            background: none;
+          }
+        }
+      }
     }
   }
 }

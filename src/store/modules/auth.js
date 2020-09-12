@@ -8,7 +8,7 @@ export default {
 
     // 数据来自 /auth/userinfo
     roles: [], // 角色值，如果有值，标识已经拉取了userinfo数据
-    userinfo: {}, // 用户信息
+    userinfo: {} // 用户信息
   }),
   getters: {},
   mutations: {
@@ -27,7 +27,7 @@ export default {
       state.roles = [];
       state.userinfo = {};
       localAuthToken.clear();
-    },
+    }
   },
   actions: {
     async login({ commit }, payload) {
@@ -51,8 +51,8 @@ export default {
       const [err, data] = await logout();
       if (!err) commit("clear");
       return [err, data];
-    },
-  },
+    }
+  }
 };
 
 function localAuthToken() {}
