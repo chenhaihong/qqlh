@@ -6,7 +6,6 @@ const echarts = window.echarts;
 export default {
   oEcharts: null,
   name: "TEcharts",
-  data: () => ({ echarts: null, oEcharts: null }),
   props: ["id", "loading", "map", "mapName", "option", "resize", "events"],
   components: {},
   computed: {
@@ -55,7 +54,7 @@ export default {
   },
   watch: {
     option() {
-      echarts && this.updateOption();
+      this.updateOption();
     },
     loading: {
       immediate: true,

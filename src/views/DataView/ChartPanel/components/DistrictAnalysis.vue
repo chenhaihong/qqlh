@@ -6,11 +6,12 @@
     </div>
     <div class="contentBox">
       <TEcharts
+        v-if="!loadingGeoJSON"
         id="mapDistrictAnalysis"
         :option="chartOption"
         :loading="loading"
         :map="map"
-        mapName="广东"
+        :mapName="mapName"
         resize="true"
         style="height: 100%;"
       ></TEcharts>
@@ -23,8 +24,10 @@ import { getDistrictAnalysisData } from "@/api/dataView";
 export default {
   name: "DistrictAnalysis",
   data: () => ({
+    loadingGeoJSON: true,
     loading: true,
     map: null,
+    mapName: null,
 
     // 下拉列表
     type: 0,
@@ -151,7 +154,9 @@ export default {
   async created() {
     import("@/config/gdGeo.json")
       .then(data => {
+        this.loadingGeoJSON = false;
         this.map = Object.freeze(data.default);
+        this.mapName = "广东";
       })
       .catch(() => {});
 

@@ -1,34 +1,32 @@
 <template>
   <div class="left-menu">
-    <el-col>
-      <el-menu
-        :router="true"
-        :default-active="defaultActive"
-        :default-openeds="defaultOpeneds"
-      >
-        <template v-for="item in visibledAddressableRoutes">
-          <template v-if="item.children && item.children.length">
-            <el-submenu :index="item.path" :key="item.path">
-              <template slot="title">
-                <svg-icon :iconClass="item.icon" />
-                {{ item.meta.title || item.name }}
-              </template>
-              <template v-for="v in item.children">
-                <el-menu-item :index="v.path" :key="v.path">{{
-                  v.meta.title || v.name
-                }}</el-menu-item>
-              </template>
-            </el-submenu>
-          </template>
-          <template v-else>
-            <el-menu-item :index="item.path" :key="item.path">
+    <el-menu
+      :router="false"
+      unique-opened
+      :default-active="defaultActive"
+      :default-openeds="defaultOpeneds"
+      @select="select"
+    >
+      <template v-for="item in visibledAddressableRoutes">
+        <template v-if="item.children && item.children.length">
+          <el-submenu :index="item.path" :key="item.path">
+            <template slot="title">
               <svg-icon :iconClass="item.icon" />
               {{ item.meta.title || item.name }}
-            </el-menu-item>
-          </template>
+            </template>
+            <template v-for="v in item.children">
+              <el-menu-item :index="v.path" :key="v.path">{{ v.meta.title || v.name }}</el-menu-item>
+            </template>
+          </el-submenu>
         </template>
-      </el-menu>
-    </el-col>
+        <template v-else>
+          <el-menu-item :index="item.path" :key="item.path">
+            <svg-icon :iconClass="item.icon" />
+            {{ item.meta.title || item.name }}
+          </el-menu-item>
+        </template>
+      </template>
+    </el-menu>
   </div>
 </template>
 
@@ -58,9 +56,38 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    select(index) {
+      const { route } = this.$router.resolve(index);
+      const { meta = {}, fullPath } = route;
+      if (meta.link) {
+        let title = "提示";
+        let desc = `即将进入新页面，点击前往 <a class="leftMenu-comfirm-link" href='${
+          meta.link
+        }' target="_blank">${meta.title || meta.link}</a>`;
+        return this.$confirm(desc, title, {
+          dangerouslyUseHTMLString: true,
+          confirmButtonText: "确定",
+          showConfirmButton: false,
+          cancelButtonText: "取消",
+          type: "warning"
+        }).catch(() => {});
+      }
+      if (this.$route.fullPath !== fullPath) this.$router.push(fullPath);
+    }
   }
 };
 </script>
+<style lang="less">
+.leftMenu-comfirm-link {
+  color: @leftMenu-comfirm-link-color;
+  &:hover {
+    text-decoration: underline;
+    color: @leftMenu-comfirm-link-color;
+  }
+}
+</style>
 
 <style lang="less" scoped>
 .left-menu {
