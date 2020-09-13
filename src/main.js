@@ -5,7 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import "@/plugins/element-ui.js";
+// import "@/plugins/element-ui.js";
 import "@/plugins/t-echarts.js";
 import "@/plugins/t-ui.js";
 import "@/plugins/icons";

@@ -1,24 +1,45 @@
-# bplat-select
+# 阡阡路惠管理平台 —— 演示代码
 
-## Project setup
+## 1 在线地址
+
+https://qqlh.tiiit.cn
+
+## 2 演示账号
+
+| 账号    | 密码     | 角色值 | 说明                         |
+| ------- | -------- | ------ | ---------------------------- |
+| haihong | 任意密码 | [1, 2] | 可以访问所有菜单             |
+| admin   | 任意密码 | [1]    | 可以访问管理员角色的菜单     |
+| doc     | 任意密码 | [2]    | 可以访问阅读文档者角色的菜单 |
+
+## 3 开发
+
+### 3.1 安装依赖
+
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 3.2 本地开发
+
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### 3.3 构建
+
 ```
 yarn build
 ```
 
-### Lints and fixes files
+### 3.4 Lints and fixes files
+
 ```
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 3.5 预览
+
+```
+yarn preview
+```

@@ -5,7 +5,7 @@ const setting = require("./src/setting");
 const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     useHtmlOptions(config);
     useSvgSprite(config);
     useAutoImportStyleVaribles(config);
@@ -14,18 +14,21 @@ module.exports = {
     name: setting.name,
     devtool: isDev ? "eval-source-map" : "none",
     externals: {
-      jquery: { root: "jQuery" }
+      jquery: "jQuery",
+      vue: "Vue",
+      "vue-router": "VueRouter",
+      vuex: "Vuex",
     },
     resolve: {
-      alias: { "@": path.resolve(__dirname, "src") }
-    }
+      alias: { "@": path.resolve(__dirname, "src") },
+    },
   },
   css: { sourceMap: isDev },
-  ...getDevServerConfig()
+  ...getDevServerConfig(),
 };
 
 function useHtmlOptions(config) {
-  config.plugin("html").tap(options => {
+  config.plugin("html").tap((options) => {
     options[0].title = setting.name;
     return options;
   });
@@ -50,7 +53,7 @@ function useSvgSprite(config) {
 
 function useAutoImportStyleVaribles(config) {
   const types = ["vue-modules", "vue", "normal-modules", "normal"];
-  types.forEach(type =>
+  types.forEach((type) =>
     addStyleResource(config.module.rule("less").oneOf(type))
   );
   function addStyleResource(rule) {
@@ -58,7 +61,7 @@ function useAutoImportStyleVaribles(config) {
       .use("style-resource")
       .loader("style-resources-loader")
       .options({
-        patterns: [path.resolve(__dirname, "./src/assets/less/variables.less")]
+        patterns: [path.resolve(__dirname, "./src/assets/less/variables.less")],
       });
   }
 }
@@ -73,7 +76,7 @@ function getDevServerConfig() {
       open: true,
       overlay: {
         warnings: false,
-        errors: true
+        errors: true,
       },
       // proxy: {},
       before(app) {
@@ -91,10 +94,10 @@ function getDevServerConfig() {
         const attachMocker = createAttachMocker({
           mockDir: path.resolve(__dirname, "mock"),
           onUrlencodedParser: true,
-          onJsonBodyParser: true
+          onJsonBodyParser: true,
         });
         attachMocker(app);
-      }
-    }
+      },
+    },
   };
 }
