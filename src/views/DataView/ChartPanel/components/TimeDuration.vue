@@ -49,7 +49,10 @@ export default {
     trafficFLowThisMonth: []
   }),
   props: [],
-  components: {},
+  components: {
+    TTab: () => import("@/views/DataView/components/TTab"),
+    TSwitcher: () => import("@/views/DataView/components/TSwitcher")
+  },
   computed: {
     chartOption() {
       // dataType 0 => 营收时分分析、 1 => 车流时分分析

@@ -21,9 +21,12 @@ app.use((req, res, next) => {
 });
 
 app.use(function(err, req, res, next) {
-  res.status(500).send(err.message || "Something broke!");
+  res
+    .status(500)
+    .send({ success: false, message: err.message || "Something broke!" });
 });
 
-app.listen(3006, () => {
-  console.log("QQLH: Listening on port 3000.");
+const port = 3006;
+app.listen(port, () => {
+  console.log(`QQLH: Listening on port ${port}.`);
 });

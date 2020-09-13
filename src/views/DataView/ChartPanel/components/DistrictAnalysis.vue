@@ -46,7 +46,10 @@ export default {
     truckEnd: []
   }),
   props: ["isRebateAddComponent"],
-  components: {},
+  components: {
+    TTab: () => import("@/views/DataView/components/TTab"),
+    TDropList: () => import("@/views/DataView/components/TDropList")
+  },
   computed: {
     chartOption() {
       let bus = [];

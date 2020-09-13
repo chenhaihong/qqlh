@@ -51,8 +51,6 @@
 </template>
 
 <script>
-// import { WELCOME_STATION_ANALYSIS } from "../../../api/index.js";
-
 export default {
   name: "StationAnalysis",
   data: () => ({
@@ -75,7 +73,10 @@ export default {
     outThisMonth: []
   }),
   props: [],
-  components: {},
+  components: {
+    TTab: () => import("@/views/DataView/components/TTab"),
+    TSwitcher: () => import("@/views/DataView/components/TSwitcher")
+  },
   computed: {
     optionStationAnalysis() {
       let aName = "";

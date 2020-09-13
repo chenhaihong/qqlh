@@ -2,7 +2,7 @@ import Vue from "vue";
 
 Vue.use(installAsyncTEcharts);
 
-function installAsyncTEcharts(__Vue) {
+function installAsyncTEcharts(app) {
   const asyncTEcharts = () => import("@/components/TEcharts");
-  __Vue.component("TEcharts", asyncTEcharts); // 注册全局TEcharts组件
+  app.component("TEcharts", asyncTEcharts); // 注册全局TEcharts组件
 }

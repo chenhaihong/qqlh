@@ -77,7 +77,9 @@ export default {
     bus: [10, 10, 10, 15]
   }),
   props: [],
-  components: {},
+  components: {
+    TTab: () => import("@/views/DataView/components/TTab"),
+  },
   computed: {
     option() {
       let truck = this.truck;

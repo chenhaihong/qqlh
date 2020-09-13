@@ -86,8 +86,14 @@ const routes = [
     path: "/DataView",
     name: "DataView",
     icon: "data",
-    meta: { title: "数据大屏", link:'/DataView', roles: [] },
+    meta: { title: "数据大屏", link: "/DataView", roles: [] },
     component: () => import("@/views/DataView/index.vue"),
+  },
+  {
+    path: "/GithubChenHaihong",
+    name: "Github",
+    icon: "github",
+    meta: { title: "Github", link: "https://github.com/chenhaihong/qqlh" },
   },
   {
     // 演示角色
@@ -164,18 +170,18 @@ const routes = [
         component: () => import("@/views/doc/DocMock.vue"),
       },
       {
+        path: "/doc/lodash-template",
+        name: "DocLodashTemplate",
+        meta: { title: "Lodash模板", roles: [2] },
+        component: () => import("@/views/doc/DocLodashTemplate.vue"),
+      },
+      {
         path: "/doc/element-ui",
         name: "DocElement",
         meta: { title: "饿了么UI", roles: [2] },
         component: () => import("@/views/doc/DocElement.vue"),
       },
     ],
-  },
-  {
-    path: "/GithubChenHaihong",
-    name: "Github",
-    icon: "github",
-    meta: { title: "Github", link: "https://github.com/chenhaihong/qqlh" },
   },
   { path: "*", name: "NotFound", redirect: "/404", hidden: true },
 ];

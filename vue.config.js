@@ -30,6 +30,7 @@ module.exports = {
 function useHtmlOptions(config) {
   config.plugin("html").tap((options) => {
     options[0].title = setting.name;
+    options[0].isDev = isDev;
     return options;
   });
 }
