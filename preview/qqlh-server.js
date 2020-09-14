@@ -5,7 +5,7 @@ const { createAttachMocker } = require("@erye/wds-mocker");
 
 const app = express();
 
-app.use(express.static(resolve(__dirname, "../dist")));
+app.use(express.static(resolve(__dirname, "../dist")), { maxAge: "1y" });
 
 const attachMocker = createAttachMocker({
   mockDir: resolve(__dirname, "../mock"),

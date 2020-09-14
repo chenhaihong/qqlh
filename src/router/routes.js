@@ -164,6 +164,12 @@ const routes = [
         component: () => import("@/views/doc/DocStyle.vue"),
       },
       {
+        path: "/doc/service",
+        name: "DocService",
+        meta: { title: "数据请求", roles: [2] },
+        component: () => import("@/views/doc/DocService.vue"),
+      },
+      {
         path: "/doc/mock",
         name: "DocMock",
         meta: { title: "数据模拟", roles: [2] },
