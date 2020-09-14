@@ -4,7 +4,8 @@
       <h1>数据请求</h1>
       <br />
       <p>
-        这里面使用了 axios 请求库，并且对请求和响应都配置了拦截器。代码位于 /src/helper/request.js 中。
+        这里面使用了 axios 请求库，并且对请求和响应都配置了拦截器。代码位于
+        /src/helper/request.js 中。
         <br />如果有需要，你可以把它挂载 Vue 的原型上。
       </p>
     </section>

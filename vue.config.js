@@ -5,7 +5,7 @@ const setting = require("./src/setting");
 const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     useHtmlOptions(config);
     useSvgSprite(config);
     useAutoImportStyleVaribles(config);
@@ -17,18 +17,18 @@ module.exports = {
       jquery: "jQuery",
       vue: "Vue",
       "vue-router": "VueRouter",
-      vuex: "Vuex",
+      vuex: "Vuex"
     },
     resolve: {
-      alias: { "@": path.resolve(__dirname, "src") },
-    },
+      alias: { "@": path.resolve(__dirname, "src") }
+    }
   },
   css: { sourceMap: isDev },
-  ...getDevServerConfig(),
+  ...getDevServerConfig()
 };
 
 function useHtmlOptions(config) {
-  config.plugin("html").tap((options) => {
+  config.plugin("html").tap(options => {
     options[0].title = setting.name;
     options[0].isDev = isDev;
     return options;
@@ -54,7 +54,7 @@ function useSvgSprite(config) {
 
 function useAutoImportStyleVaribles(config) {
   const types = ["vue-modules", "vue", "normal-modules", "normal"];
-  types.forEach((type) =>
+  types.forEach(type =>
     addStyleResource(config.module.rule("less").oneOf(type))
   );
   function addStyleResource(rule) {
@@ -62,7 +62,7 @@ function useAutoImportStyleVaribles(config) {
       .use("style-resource")
       .loader("style-resources-loader")
       .options({
-        patterns: [path.resolve(__dirname, "./src/assets/less/variables.less")],
+        patterns: [path.resolve(__dirname, "./src/assets/less/variables.less")]
       });
   }
 }
@@ -73,11 +73,11 @@ function getDevServerConfig() {
   }
   return {
     devServer: {
-      // port,
+      // port: 3000,
       open: true,
       overlay: {
         warnings: false,
-        errors: true,
+        errors: true
       },
       // proxy: {},
       before(app) {
@@ -85,20 +85,25 @@ function getDevServerConfig() {
           // 控制台展示请求
           const method = chalk.bgGreen(` ${chalk.black(req.method)} `);
           const url = chalk.green(req.url);
+          // eslint-disable-next-line
           console.log(`${method} ${url}`);
           next();
         });
       },
       after(app) {
+        // eslint-disable-next-line
         console.log("");
         const { createAttachMocker } = require("@erye/wds-mocker");
-        const attachMocker = createAttachMocker({
-          mockDir: path.resolve(__dirname, "mock"),
+        const dir = path.resolve(__dirname, "mock");
+        const attachMocker = createAttachMocker(dir, {
           onUrlencodedParser: true,
           onJsonBodyParser: true,
+          onLogger: true,
+          onWatcher: true,
+          onRouteParametersCapturer: false
         });
         attachMocker(app);
-      },
-    },
+      }
+    }
   };
 }

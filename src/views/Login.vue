@@ -40,7 +40,7 @@
         >{{ icpCode }}</a
       >
       <template v-if="icpCode && beianCode">
-        <span> | </span>
+        <span>|</span>
       </template>
       <a
         v-if="beianCode"
@@ -124,10 +124,12 @@ export default {
   margin: 80px auto 0 auto;
   padding-bottom: 1px;
   width: 500px;
+  max-width: 100%;
 
   .wrapper {
     margin: auto;
     width: 300px;
+    max-width: 90%;
     text-align: center;
   }
 
@@ -147,11 +149,11 @@ export default {
     display: block;
     margin-bottom: 20px;
     width: 300px;
+    max-width: 100%;
     height: 46px;
     line-height: 46px;
     font-size: 14px;
     text-indent: 12px;
-    // color: #ccc;
     border: solid 1px #d9d9d9;
     border-radius: 3px;
     outline: none;
@@ -166,6 +168,7 @@ export default {
     display: block;
     margin-bottom: 40px;
     width: 300px;
+    max-width: 100%;
     height: 46px;
     line-height: 46px;
     font-size: 16px;

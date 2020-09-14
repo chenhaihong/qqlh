@@ -14,7 +14,8 @@
           target="_blank"
           href="https://www.npmjs.com/package/@erye/wds-mocker"
           alt="@erye/wds-mocker"
-        >@erye/wds-mocker 的文档</a>。
+          >@erye/wds-mocker 的文档</a
+        >。
       </p>
 
       <br />
@@ -22,7 +23,10 @@
 
       <h2>2. 修改数据模拟文件，需要重启吗？</h2>
       <br />
-      <p>不需要重启，@erye/wds-mocker 做了监听 mock 目录里的文件变更操作，当有变动时，会自动移除对应文件的 require.cache。</p>
+      <p>
+        不需要重启，@erye/wds-mocker 做了监听 mock
+        目录里的文件变更操作，当有变动时，会自动移除对应文件的 require.cache。
+      </p>
     </section>
   </TContainer>
 </template>

@@ -7,12 +7,13 @@ const app = express();
 
 app.use(express.static(resolve(__dirname, "../dist"), { maxAge: "1y" }));
 
-const attachMocker = createAttachMocker({
-  mockDir: resolve(__dirname, "../mock"),
+const dir = resolve(__dirname, "../mock");
+const attachMocker = createAttachMocker(dir, {
   onUrlencodedParser: true,
   onJsonBodyParser: true,
-  onLogger: false,
-  onWatcher: false,
+  onLogger: true,
+  onWatcher: true,
+  onRouteParametersCapturer: false,
 });
 attachMocker(app);
 

@@ -9,13 +9,13 @@ const request = axios.create({
   withCredentials: true, // send cookies when cross-domain requests
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
-    "X-Requested-With": "XMLHttpRequest",
+    "X-Requested-With": "XMLHttpRequest"
   },
-  timeout: 30000, // request timeout
+  timeout: 30000 // request timeout
 });
 
 // request interceptor
-request.interceptors.request.use((config) => {
+request.interceptors.request.use(config => {
   const { token } = store.state.auth;
   if (token) {
     config.headers.Authorization = token;
@@ -30,7 +30,7 @@ request.interceptors.response.use(
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
-  (response) => {
+  response => {
     const res = response.data;
     if (res.success) {
       return [null, res.data];
@@ -47,7 +47,7 @@ request.interceptors.response.use(
           type: "warning",
           callback() {
             router.push(`/login?redirect=${encodeURIComponent(location.href)}`);
-          },
+          }
         });
         break;
       case 50403:
@@ -59,17 +59,17 @@ request.interceptors.response.use(
         Message({
           message: res.message || "请求服务失败，请重试",
           type: "error",
-          duration: 5000,
+          duration: 5000
         });
         break;
     }
     return [new Error(res.message || "Error"), null];
   },
-  (error) => {
+  error => {
     Message({
       message: error.message,
       type: "error",
-      duration: 5000,
+      duration: 5000
     });
     return [error, null];
   }

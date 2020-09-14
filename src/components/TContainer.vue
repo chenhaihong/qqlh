@@ -26,5 +26,6 @@ export default { name: "TContainer" };
 .chilView__container__body {
   padding: 20px;
   background-color: white;
+  overflow-x: auto;
 }
 </style>

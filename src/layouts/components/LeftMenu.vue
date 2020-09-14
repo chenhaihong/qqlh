@@ -15,7 +15,9 @@
               {{ item.meta.title || item.name }}
             </template>
             <template v-for="v in item.children">
-              <el-menu-item :index="v.path" :key="v.path">{{ v.meta.title || v.name }}</el-menu-item>
+              <el-menu-item :index="v.path" :key="v.path">{{
+                v.meta.title || v.name
+              }}</el-menu-item>
             </template>
           </el-submenu>
         </template>

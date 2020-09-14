@@ -78,7 +78,7 @@ export default {
   }),
   props: [],
   components: {
-    TTab: () => import("@/views/DataView/components/TTab"),
+    TTab: () => import("@/views/DataView/components/TTab")
   },
   computed: {
     option() {

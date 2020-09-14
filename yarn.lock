@@ -880,10 +880,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@erye/wds-mocker@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npm.taobao.org/@erye/wds-mocker/download/@erye/wds-mocker-0.2.0.tgz#cd8dfd44a9853c11866c76d71d60481a8bf70937"
-  integrity sha1-zY39RKmFPBGGbHbXHWBIGov3CTc=
+"@erye/wds-mocker@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.npm.taobao.org/@erye/wds-mocker/download/@erye/wds-mocker-0.3.0.tgz#96da18e1de284353c704d7307de28624423f5a44"
+  integrity sha1-ltoY4d4oQ1PHBNcwfeKGJEI/WkQ=
   dependencies:
     body-parser "^1.19.0"
     chalk "^4.1.0"

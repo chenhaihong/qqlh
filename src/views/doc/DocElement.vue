@@ -5,7 +5,9 @@
     </section>
     <section slot="default">
       文档地址：
-      <a target="_blank" href="https://element.eleme.cn/#/zh-CN">https://element.eleme.cn/#/zh-CN</a>
+      <a target="_blank" href="https://element.eleme.cn/#/zh-CN"
+        >https://element.eleme.cn/#/zh-CN</a
+      >
     </section>
   </TContainer>
 </template>
@@ -16,5 +18,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>
