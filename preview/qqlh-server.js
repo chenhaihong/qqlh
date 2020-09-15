@@ -1,9 +1,19 @@
 const { resolve } = require("path");
 
+const chalk = require("chalk");
 const express = require("express");
 const { createAttachMocker } = require("@erye/wds-mocker");
 
 const app = express();
+
+app.use(function methodUrlLogger(req, res, next) {
+  // 控制台展示请求
+  const method = chalk.bgGreen(` ${chalk.black(req.method)} `);
+  const url = chalk.green(req.url);
+  // eslint-disable-next-line
+  console.log(`${method} ${url}`);
+  next();
+});
 
 app.use(express.static(resolve(__dirname, "../dist"), { maxAge: "1y" }));
 

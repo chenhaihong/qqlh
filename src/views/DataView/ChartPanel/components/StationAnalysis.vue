@@ -51,6 +51,9 @@
 </template>
 
 <script>
+import TTab from "@/views/DataView/components/TTab";
+import TSwitcher from "@/views/DataView/components/TSwitcher";
+
 export default {
   name: "StationAnalysis",
   data: () => ({
@@ -73,10 +76,7 @@ export default {
     outThisMonth: []
   }),
   props: [],
-  components: {
-    TTab: () => import("@/views/DataView/components/TTab"),
-    TSwitcher: () => import("@/views/DataView/components/TSwitcher")
-  },
+  components: { TTab, TSwitcher },
   computed: {
     optionStationAnalysis() {
       let aName = "";

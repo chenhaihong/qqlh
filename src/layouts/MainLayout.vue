@@ -1,10 +1,7 @@
 <template>
   <div class="mainLayout">
     <Head class="mainLayout__head" />
-    <div
-      class="mainLayout__body"
-      :class="{ 'mainLayout__body--hideLeftMenu': !show }"
-    >
+    <div class="mainLayout__body" :class="{ 'mainLayout__body--hideLeftMenu': !show }">
       <transition name="slide">
         <LeftMenu v-show="show" class="left-menu" />
       </transition>
@@ -27,13 +24,14 @@
 
 <script>
 import { mapState } from "vuex";
+
+import Head from "./components/Head.vue";
+import LeftMenu from "./components/LeftMenu.vue";
+import Breadcrumb from "./components/Breadcrumb.vue";
+
 export default {
   name: "MainLayout",
-  components: {
-    Head: () => import("./components/Head.vue"),
-    LeftMenu: () => import("./components/LeftMenu.vue"),
-    Breadcrumb: () => import("./components/Breadcrumb.vue")
-  },
+  components: { Head, LeftMenu, Breadcrumb },
   data() {
     return {
       transitionName: "cv-slide-left"

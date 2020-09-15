@@ -33,6 +33,9 @@ import { getEarningTrafficData } from "@/api/dataView";
 
 import isLeapYear from "@/helpers/isLeapYear";
 
+import TTab from "@/views/DataView/components/TTab";
+import TSwitcher from "@/views/DataView/components/TSwitcher";
+
 export default {
   name: "EarningTraffic",
   data: () => ({
@@ -54,10 +57,7 @@ export default {
     trafficFLowLastYear: [],
     trafficFLowThisYear: []
   }),
-  components: {
-    TTab: () => import("@/views/DataView/components/TTab"),
-    TSwitcher: () => import("@/views/DataView/components/TSwitcher")
-  },
+  components: { TTab, TSwitcher },
   computed: {
     chartOption() {
       // dataType 0 => 营收数据、1 => 车流数据

@@ -21,6 +21,9 @@
 <script>
 import { getDistrictAnalysisData } from "@/api/dataView";
 
+import TTab from "@/views/DataView/components/TTab";
+import TDropList from "@/views/DataView/components/TDropList";
+
 export default {
   name: "DistrictAnalysis",
   data: () => ({
@@ -46,10 +49,7 @@ export default {
     truckEnd: []
   }),
   props: ["isRebateAddComponent"],
-  components: {
-    TTab: () => import("@/views/DataView/components/TTab"),
-    TDropList: () => import("@/views/DataView/components/TDropList")
-  },
+  components: { TTab, TDropList },
   computed: {
     chartOption() {
       let bus = [];

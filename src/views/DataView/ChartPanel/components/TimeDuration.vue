@@ -30,6 +30,10 @@
 
 <script>
 import { getTimeDurationAnalysisData } from "@/api/dataView";
+
+import TTab from "@/views/DataView/components/TTab";
+import TSwitcher from "@/views/DataView/components/TSwitcher";
+
 export default {
   name: "TimeDuration",
   data: () => ({
@@ -49,10 +53,7 @@ export default {
     trafficFLowThisMonth: []
   }),
   props: [],
-  components: {
-    TTab: () => import("@/views/DataView/components/TTab"),
-    TSwitcher: () => import("@/views/DataView/components/TSwitcher")
-  },
+  components: { TTab, TSwitcher },
   computed: {
     chartOption() {
       // dataType 0 => 营收时分分析、 1 => 车流时分分析

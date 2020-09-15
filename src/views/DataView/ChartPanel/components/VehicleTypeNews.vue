@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import TTab from "@/views/DataView/components/TTab";
 export default {
   name: "VehicleTypeNews",
   data: () => ({
@@ -77,9 +78,7 @@ export default {
     bus: [10, 10, 10, 15]
   }),
   props: [],
-  components: {
-    TTab: () => import("@/views/DataView/components/TTab")
-  },
+  components: { TTab },
   computed: {
     option() {
       let truck = this.truck;
