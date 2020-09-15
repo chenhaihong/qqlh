@@ -6,7 +6,7 @@ export default {
   namespaced: true,
   state: () => ({
     show: window.innerWidth > 960,
-    visibledAddressableRoutes: [], // 可见的、当前用户角色可以访问的routes数据
+    visibledAddressableRoutes: [] // 可见的、当前用户角色可以访问的routes数据
   }),
   mutations: {
     updateVisibledAddressableRoutes(state, { roles }) {
@@ -15,8 +15,8 @@ export default {
     },
     toggleMenu(state) {
       state.show = !state.show;
-    },
-  },
+    }
+  }
 };
 
 // 获取可见的、当前用户角色可以访问的routes数据
@@ -26,7 +26,7 @@ function getVisibledAddressableRoutes(
   basePath = ""
 ) {
   const visibledAddressableRoutes = [];
-  tree.forEach((node) => {
+  tree.forEach(node => {
     // 1 排除hidden的node
     if (node.hidden) return;
     const { roles: routeRoles = [] } = node.meta;

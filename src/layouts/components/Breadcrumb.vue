@@ -1,26 +1,28 @@
 <template>
   <div :class="$style.breadcrumb">
-    <i :class="[$style.toggler, show ? 'el-icon-s-unfold': 'el-icon-s-fold']" @click="toggleMenu"></i>
+    <i
+      :class="[$style.toggler, show ? 'el-icon-s-fold' : 'el-icon-s-unfold']"
+      @click="toggleMenu"
+    ></i>
     <div :class="$style.square"></div>
-    <a v-if="$route.name == 'Home'" :class="[$style.link, $style.disabled]">首页</a>
+    <a v-if="$route.name == 'Home'" :class="[$style.link, $style.disabled]"
+      >首页</a
+    >
     <template v-else>
       <!-- <router-link :class="$style.link" :to="{ path: '/home' }">首页</router-link> -->
       <template v-for="(item, index) in $route.matched">
         <div :class="$style.linkSep" :key="item.fullPath">
           <span v-if="index > 0" :class="$style.separator">
-            {{
-            separator
-            }}
+            {{ separator }}
           </span>
           <router-link
             v-if="index < $route.matched.length - 1"
             :to="{ path: item.path }"
             :class="$style.link"
-          >{{ item.meta.title }}</router-link>
+            >{{ item.meta.title }}</router-link
+          >
           <a v-else :class="[$style.link, $style.disabled]">
-            {{
-            item.meta.title
-            }}
+            {{ item.meta.title }}
           </a>
         </div>
       </template>

@@ -29,7 +29,7 @@ yarn serve
 ### 3.3 构建
 
 ```
-yarn build
+yarn build --report
 ```
 
 ### 3.4 Lints and fixes files
