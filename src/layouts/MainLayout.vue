@@ -1,8 +1,10 @@
 <template>
   <div class="mainLayout">
     <Head class="mainLayout__head" />
-    <div class="mainLayout__body">
-      <LeftMenu class="left-menu" />
+    <div class="mainLayout__body" :class="{'mainLayout__body--hideLeftMenu': !show}">
+      <transition name="slide">
+        <LeftMenu v-show="show" class="left-menu" />
+      </transition>
       <div class="right-content">
         <Breadcrumb />
         <div class="child-view">
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "MainLayout",
   components: {
@@ -34,6 +37,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("leftMenu", ["show"]),
     isKeepAlive() {
       return !!this.$route.meta.keepAlive;
     }
@@ -69,6 +73,12 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+
+  &.mainLayout__body--hideLeftMenu {
+    .right-content {
+      margin-left: 0;
+    }
+  }
 
   .left-menu {
     z-index: @leftMenu-z-index;

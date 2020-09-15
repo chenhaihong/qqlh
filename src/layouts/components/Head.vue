@@ -13,7 +13,7 @@
         </div>
       </li>
       <li>
-        <a @click="quit">退出</a>
+        <a class="quit" @click="quit">退出</a>
       </li>
     </ul>
   </header>
@@ -77,8 +77,18 @@ export default {
       font-size: @header-userinfo-font-size;
       color: @header-userinfo-color;
 
-      & > a {
+      & > a.quit {
         color: @header-userinfo-color;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: -20px;
+          right: -10px;
+          bottom: -20px;
+          left: -10px;
+        }
       }
       &:hover {
         background-color: @header-userinfo-li-hover-background-color;
