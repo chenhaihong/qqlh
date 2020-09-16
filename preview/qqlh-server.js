@@ -1,18 +1,14 @@
 const { resolve } = require("path");
 
-const chalk = require("chalk");
 const express = require("express");
 const { createAttachMocker } = require("@erye/wds-mocker");
 
 const app = express();
 
-app.use(function methodUrlLogger(req, res, next) {
-  // 控制台展示请求
-  const method = chalk.bgGreen(` ${chalk.black(req.method)} `);
-  const url = chalk.green(req.url);
-  // eslint-disable-next-line
-  console.log(`${method} ${url}`);
-  next();
+// eslint-disable-next-line
+app.get("/", function(req, res, next) {
+  res.setHeader("Cache-Control", "public, max-age=0");
+  res.sendFile(resolve(__dirname, "../dist/index.html"));
 });
 
 app.use(
@@ -32,8 +28,8 @@ const dir = resolve(__dirname, "../mock");
 const attachMocker = createAttachMocker(dir, {
   onUrlencodedParser: true,
   onJsonBodyParser: true,
-  onLogger: true,
-  onWatcher: true,
+  onLogger: false,
+  onWatcher: false,
   onRouteParametersCapturer: false
 });
 attachMocker(app);
