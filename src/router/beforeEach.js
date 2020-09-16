@@ -24,12 +24,11 @@ import confirmLink from "@/helpers/confirmLink";
 const commonPaths = ["/login", "/404", "/403", "/500"]; // 无需鉴权
 const beforeEach = async (to, from, next) => {
   // 提前处理link外链
-  console.log(to, from);
   if (to.meta && to.meta.link && !to.meta.link.startsWith("/")) {
     return confirmLink(to.meta.link, {
       showClose: false,
       showCancelButton: false,
-      closeOnClickModal: false,
+      closeOnClickModal: false
     });
   }
 
@@ -54,7 +53,7 @@ const beforeEach = async (to, from, next) => {
           return; // 直接return，@/helpers/request会错误处理
         } else {
           store.commit("leftMenu/updateVisibledAddressableRoutes", {
-            roles: data.roles,
+            roles: data.roles
           });
         }
       }

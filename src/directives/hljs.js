@@ -44,7 +44,7 @@ Vue.directive("hljs", {
         render(el);
       });
     }
-  },
+  }
 });
 
 function render(el) {

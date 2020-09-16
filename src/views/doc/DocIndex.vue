@@ -5,7 +5,9 @@
       <br />
       <p>
         项目使用了 vue-cli，详细的配置信息可以阅读
-        <a class="link" href="https://cli.vuejs.org/zh/" target="_blank">vue-cli官网</a>。
+        <a class="link" href="https://cli.vuejs.org/zh/" target="_blank"
+          >vue-cli官网</a
+        >。
       </p>
     </section>
     <section slot="default">

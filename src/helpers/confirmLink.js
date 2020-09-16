@@ -4,7 +4,7 @@ export default function confirmLink(link, options = {}) {
   const {
     showClose = true,
     showCancelButton = true,
-    closeOnClickModal = true,
+    closeOnClickModal = true
   } = options;
 
   let title = "提示";
@@ -16,10 +16,9 @@ export default function confirmLink(link, options = {}) {
       showCancelButton,
 
       dangerouslyUseHTMLString: true,
-      closeOnClickModal: false,
       showConfirmButton: false,
       cancelButtonText: "取消",
-      type: "warning",
+      type: "warning"
     })
     .catch(() => {});
 }
