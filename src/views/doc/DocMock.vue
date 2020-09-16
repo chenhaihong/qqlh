@@ -14,8 +14,7 @@
           target="_blank"
           href="https://www.npmjs.com/package/@erye/wds-mocker"
           alt="@erye/wds-mocker"
-          >@erye/wds-mocker 的文档</a
-        >。
+        >@erye/wds-mocker 的文档</a>。
       </p>
 
       <br />
@@ -27,13 +26,52 @@
         不需要重启，@erye/wds-mocker 做了监听 mock
         目录里的文件变更操作，当有变动时，会自动移除对应文件的 require.cache。
       </p>
+
+      <br />
+      <br />
+      <h2>3. 示例代码</h2>
+      <pre>
+        <code class="javascript" v-hljs>{{mock}}</code>
+      </pre>
     </section>
   </TContainer>
 </template>
 
 <script>
 export default {
-  name: "DocMock"
+  name: "DocMock",
+  data() {
+    return {
+      mock: `
+const sleep = function (delay) {
+  return new Promise((res) => {
+    setTimeout(res, delay);
+  });
+};
+ 
+module.exports = {
+  // json对象
+  "GET /json": { success: true, data: { message: "hello wds-mocker" } },
+ 
+  //  pure function
+  "GET /pureFunction": () => {
+    return { success: true, data: { message: "pureFunction" } };
+  },
+  // pure function + 捕获路由参数
+  "GET /pureFunction/:id": (req) => {
+    const { params, query } = req;
+    return { success: true, data: { message: "pureFunction", params, query } };
+  },
+ 
+  // 异步
+  "GET /async": async () => {
+    await sleep(2000);
+    return { success: true, data: { message: "async" } };
+  },
+};
+      `
+    };
+  }
 };
 </script>
 

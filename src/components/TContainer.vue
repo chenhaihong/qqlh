@@ -1,5 +1,5 @@
 <template>
-  <section class="chilView__container">
+  <section class="chilView__container" :class="computedClass">
     <section v-if="$slots.head" class="chilView__container__head">
       <slot name="head"></slot>
     </section>
@@ -10,22 +10,48 @@
 </template>
 
 <script>
-export default { name: "TContainer" };
+export default {
+  name: "TContainer",
+  props: {
+    type: { default: "medium", type: String }
+  },
+  computed: {
+    computedClass() {
+      if (["large", "medium", "small"].includes(this.type)) {
+        return `chilView__container--${this.type}`;
+      }
+      return "";
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
-.chilView__container {
-  margin: 20px;
+@ctn: chilView__container;
+.@{ctn} {
+  margin: @childView-container-margin;
   padding-bottom: 1px;
+  line-height: 1.4;
+  &.@{ctn}--large {
+    font-size: @childView-container-font-size--large;
+  }
+  &.@{ctn}--medium {
+    font-size: @childView-container-font-size--medium;
+  }
+  &.@{ctn}--small {
+    font-size: @childView-container-font-size--small;
+  }
 }
-.chilView__container__head {
-  margin-bottom: 8px;
-  padding: 20px;
+.@{ctn}__head {
+  margin-bottom: @childView-container-gap;
+  padding: @childView-container-padding;
   background-color: white;
+  box-shadow: @childView-container-box-shadow;
 }
-.chilView__container__body {
-  padding: 20px;
+.@{ctn}__body {
+  padding: @childView-container-padding;
   background-color: white;
   overflow-x: auto;
+  box-shadow: @childView-container-box-shadow;
 }
 </style>

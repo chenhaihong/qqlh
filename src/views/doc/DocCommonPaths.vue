@@ -7,20 +7,14 @@
     </section>
     <section slot="default">
       <pre class="pre">
-const commonPaths = ["/login", "/404", "/403", "/500"]; // 无需鉴权</pre
-      >
+        <code class="javascript" v-hljs>
+const commonPaths = ["/login", "/404", "/403", "/500"]; // 无需鉴权
+        </code>
+      </pre>
     </section>
   </TContainer>
 </template>
 
 <script>
-export default {
-  name: "DocCommonPaths"
-};
+export default { name: "DocCommonPaths" };
 </script>
-
-<style lang="less" scoped>
-.pre {
-  font-size: 16px;
-}
-</style>

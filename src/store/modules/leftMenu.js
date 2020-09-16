@@ -5,8 +5,8 @@ import { resolve } from "path";
 export default {
   namespaced: true,
   state: () => ({
-    show: window.innerWidth > 960,
-    visibledAddressableRoutes: [] // 可见的、当前用户角色可以访问的routes数据
+    show: localDefaultShow.get(),
+    visibledAddressableRoutes: [], // 可见的、当前用户角色可以访问的routes数据
   }),
   mutations: {
     updateVisibledAddressableRoutes(state, { roles }) {
@@ -15,8 +15,9 @@ export default {
     },
     toggleMenu(state) {
       state.show = !state.show;
-    }
-  }
+      localDefaultShow.set(state.show);
+    },
+  },
 };
 
 // 获取可见的、当前用户角色可以访问的routes数据
@@ -26,7 +27,7 @@ function getVisibledAddressableRoutes(
   basePath = ""
 ) {
   const visibledAddressableRoutes = [];
-  tree.forEach(node => {
+  tree.forEach((node) => {
     // 1 排除hidden的node
     if (node.hidden) return;
     const { roles: routeRoles = [] } = node.meta;
@@ -44,10 +45,20 @@ function getVisibledAddressableRoutes(
           userRoles,
           reset.path
         );
-        // if (!reset.children.length) delete reset.children;
       }
       visibledAddressableRoutes.push({ ...reset });
     }
   });
   return visibledAddressableRoutes;
 }
+
+function localDefaultShow() {}
+localDefaultShow.key = "tiiit_leftmenu_default_show";
+localDefaultShow.get = () => {
+  const local = localStorage.getItem(localDefaultShow.key);
+  if (local) return local === "1";
+  return window.innerWidth > 960;
+};
+localDefaultShow.set = (val = true) => {
+  localStorage.setItem(localDefaultShow.key, val ? "1" : "0");
+};

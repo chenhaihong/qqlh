@@ -1,10 +1,9 @@
-// 2个函数是否有交集
-export default function hasIntersect(a = [], b = []) {
-  if (!Array.isArray(a) || !Array.isArray(b)) return false;
-
-  for (let i = 0; i < a.length; i++) {
-    const ai = a[i];
-    if (b.includes(ai)) return true;
+// 2个数组是否有交集
+export default function hasIntersect(a, b) {
+  if (Array.isArray(a) & Array.isArray(b)) {
+    for (const item of a) {
+      if (b.includes(item)) return true;
+    }
   }
 
   return false;

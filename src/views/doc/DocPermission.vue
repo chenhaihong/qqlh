@@ -11,29 +11,25 @@
     </section>
     <section slot="default">
       <pre class="pre">
-{
-  meta: { roles: [1] },
-  children: [
-    {
-      meta: {
-        roles: [1], // 用于定义该页面可以访问的角色，为空、undefined、null时，任何已经登录的任何角色可以访问
-      },
+        <code class="javascript" v-hljs>
+const routes = [
+  {
+    path: "/GithubChenHaihong",
+    name: "Github",
+    icon: "github",
+    meta: { 
+      title: "Github", 
+      link: "https://github.com/chenhaihong/qqlh", 
+      roles: [1], // 用于定义该页面可以访问的角色，为空、undefined、null时，任何已经登录的任何角色可以访问
     },
-  ],
-}</pre
-      >
+  },
+];
+        </code>
+      </pre>
     </section>
   </TContainer>
 </template>
 
 <script>
-export default {
-  name: "DocPermission"
-};
+export default { name: "DocPermission" };
 </script>
-
-<style lang="less" scoped>
-.pre {
-  font-size: 16px;
-}
-</style>
