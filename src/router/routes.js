@@ -54,7 +54,7 @@ const routes = [
     path: "/DataView",
     name: "DataView",
     icon: "data",
-    meta: { title: "数据大屏", link: "/DataView", roles: [] },
+    meta: { title: "数据大屏", link: "/DataView" },
     component: () => import("@/views/DataView/index.vue")
   },
   {

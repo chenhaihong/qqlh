@@ -15,7 +15,18 @@ app.use(function methodUrlLogger(req, res, next) {
   next();
 });
 
-app.use(express.static(resolve(__dirname, "../dist"), { maxAge: "1y" }));
+app.use(
+  express.static(resolve(__dirname, "../dist"), {
+    // eslint-disable-next-line
+    setHeaders: function(res, path, stat) {
+      if (path.match(/.html/)) {
+        res.setHeader("Cache-Control", "public, max-age=0");
+      } else {
+        res.setHeader("Cache-Control", "public, max-age=31536000");
+      }
+    }
+  })
+);
 
 const dir = resolve(__dirname, "../mock");
 const attachMocker = createAttachMocker(dir, {
@@ -23,14 +34,16 @@ const attachMocker = createAttachMocker(dir, {
   onJsonBodyParser: true,
   onLogger: true,
   onWatcher: true,
-  onRouteParametersCapturer: false,
+  onRouteParametersCapturer: false
 });
 attachMocker(app);
 
+// eslint-disable-next-line
 app.use((req, res, next) => {
   res.sendFile(resolve(__dirname, "../dist/index.html"));
 });
 
+// eslint-disable-next-line
 app.use(function(err, req, res, next) {
   res
     .status(500)
@@ -39,5 +52,6 @@ app.use(function(err, req, res, next) {
 
 const port = 3006;
 app.listen(port, () => {
-  console.log(`QQLH: Listening on port ${port}.`);
+  // eslint-disable-next-line
+  console.log(`QQLH: Listening on port http://0.0.0.0:${port}.`);
 });
