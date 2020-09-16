@@ -53,4 +53,3 @@ const routes = [
   }
 };
 </script>
-

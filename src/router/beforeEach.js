@@ -4,6 +4,7 @@ import "./override-nprogress.less";
 import NProgress from "nprogress";
 import store from "@/store";
 import hasIntersect from "@/helpers/hasIntersect";
+import confirmLink from "@/helpers/confirmLink";
 
 /**
  * 路由拦截逻辑
@@ -22,6 +23,16 @@ import hasIntersect from "@/helpers/hasIntersect";
 
 const commonPaths = ["/login", "/404", "/403", "/500"]; // 无需鉴权
 const beforeEach = async (to, from, next) => {
+  // 提前处理link外链
+  console.log(to, from);
+  if (to.meta && to.meta.link && !to.meta.link.startsWith("/")) {
+    return confirmLink(to.meta.link, {
+      showClose: false,
+      showCancelButton: false,
+      closeOnClickModal: false,
+    });
+  }
+
   NProgress.start();
   const token = store.state.auth.token;
   const routeRoles = to.meta.roles || [];
@@ -43,7 +54,7 @@ const beforeEach = async (to, from, next) => {
           return; // 直接return，@/helpers/request会错误处理
         } else {
           store.commit("leftMenu/updateVisibledAddressableRoutes", {
-            roles: data.roles
+            roles: data.roles,
           });
         }
       }

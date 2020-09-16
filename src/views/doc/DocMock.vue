@@ -14,7 +14,8 @@
           target="_blank"
           href="https://www.npmjs.com/package/@erye/wds-mocker"
           alt="@erye/wds-mocker"
-        >@erye/wds-mocker 的文档</a>。
+          >@erye/wds-mocker 的文档</a
+        >。
       </p>
 
       <br />

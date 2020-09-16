@@ -6,7 +6,10 @@
     <section slot="default">
       <h2>1. 如何修改变量？</h2>
       <br />
-      <p>在 /src/assets/less/variables.less 配置样式变量。下面是项目代码里使用到的变量。</p>
+      <p>
+        在 /src/assets/less/variables.less
+        配置样式变量。下面是项目代码里使用到的变量。
+      </p>
       <pre class="pre">
         <code class="less" v-hljs>{{variables}}</code>
       </pre>
@@ -95,4 +98,3 @@ export default {
   }
 };
 </script>
-

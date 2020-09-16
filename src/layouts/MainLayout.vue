@@ -1,7 +1,10 @@
 <template>
   <div class="mainLayout">
     <Head class="mainLayout__head" />
-    <div class="mainLayout__body" :class="{ 'mainLayout__body--hideLeftMenu': !show }">
+    <div
+      class="mainLayout__body"
+      :class="{ 'mainLayout__body--hideLeftMenu': !show }"
+    >
       <transition name="slide">
         <LeftMenu v-show="show" class="left-menu" />
       </transition>

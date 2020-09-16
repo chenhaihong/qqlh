@@ -63,7 +63,7 @@ function render(el) {
 
   copy.style.display = "";
   el.__hljsDOM__ = copy;
-  hljs.highlightBlock(copy);
+  window.hljs.highlightBlock(copy);
 }
 
 function loadStyle() {
