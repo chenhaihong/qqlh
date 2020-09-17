@@ -1,12 +1,12 @@
 <template>
-  <div :id="id" :style="strStyle"></div>
+  <div ref="container" :style="strStyle"></div>
 </template>
 <script>
 const echarts = window.echarts;
 export default {
-  oEcharts: null,
+  echartsInstance: null,
   name: "TEcharts",
-  props: ["id", "loading", "map", "mapName", "option", "resize", "events"],
+  props: ["loading", "map", "mapName", "option", "resize", "events"],
   components: {},
   computed: {
     strStyle() {
@@ -42,14 +42,14 @@ export default {
   },
   methods: {
     updateOption() {
-      if (!this.oEcharts) {
-        let container = document.getElementById(this.id);
-        this.oEcharts = echarts.init(container);
+      if (!this.echartsInstance) {
+        let container = this.$refs.container;
+        this.echartsInstance = echarts.init(container);
       }
-      this.oEcharts.setOption(this.optionWithColor);
+      this.echartsInstance.setOption(this.optionWithColor);
     },
     resizeHandler() {
-      this.oEcharts && this.oEcharts.resize();
+      this.echartsInstance && this.echartsInstance.resize();
     }
   },
   watch: {
@@ -59,11 +59,11 @@ export default {
     loading: {
       immediate: true,
       handler(val) {
-        if (this.oEcharts) {
+        if (this.echartsInstance) {
           if (val) {
-            this.oEcharts.showLoading();
+            this.echartsInstance.showLoading();
           } else {
-            this.oEcharts.hideLoading();
+            this.echartsInstance.hideLoading();
           }
         }
       }
@@ -94,23 +94,29 @@ export default {
     this.updateOption();
 
     if (this.loading) {
-      this.oEcharts.showLoading();
+      this.echartsInstance.showLoading();
     }
 
     const { events } = this;
     if (events) {
       for (let e in events) {
-        this.oEcharts.on(e, events[e]);
+        this.echartsInstance.on(e, events[e]);
       }
     }
 
     if (this.resize) {
-      window.addEventListener("resize", this.resizeHandler);
+      this.__resizeHandler__ = () => {
+        this.resizeHandler();
+      };
+      window.addEventListener("resize", this.__resizeHandler__);
     }
   },
   beforeDestroy() {
     if (this.resize) {
-      window.removeEventListener("resize", this.resizeHandler);
+      window.removeEventListener("resize", this.__resizeHandler__);
+    }
+    if (this.echartsInstance && !this.echartsInstance.isDisposed()) {
+      echarts.dispose(this.echartsInstance);
     }
   }
 };

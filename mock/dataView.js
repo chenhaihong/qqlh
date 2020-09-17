@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const Mock = require("mockjs");
 
 const n = 1000; // 收费站每小时过1000辆车
@@ -292,6 +294,54 @@ module.exports = {
           { name: "东莞市", value: 20397 },
 
           { name: "中山市", value: 131 },
+        ],
+      },
+    });
+  },
+  "GET /dataView/stationAnalysisData": (req, res) => {
+    return Mock.mock({
+      success: true,
+      data: {
+        stations: ["化龙", "双岗", "朱山岗", "隔岗", "钟村"],
+        "truckThisDay|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "truckThisMonth|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "busThisDay|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "busThisMonth|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "inThisDay|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "inThisMonth|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "outThisDay|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
+        ],
+        "outThisMonth|5": [
+          function() {
+            return parseInt(Math.random() * WELCOME_DAY_TRAFFIC_FLOW);
+          },
         ],
       },
     });

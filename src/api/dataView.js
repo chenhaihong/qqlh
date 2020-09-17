@@ -19,3 +19,8 @@ export function getTimeDurationAnalysisData() {
 export function getDistrictAnalysisData() {
   return request({ url: "/dataView/districtAnalysisData" });
 }
+
+// 站点分析
+export function getStationAnalysisData() {
+  return request({ url: "/dataView/stationAnalysisData" });
+}

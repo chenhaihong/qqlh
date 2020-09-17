@@ -6,44 +6,25 @@
         v-model="isTruckAndBus"
         :type="2"
         :title="[
-          { value: 0, name: '货/客' },
-          { value: 1, name: '出/入' }
+          { value: 1, name: '货/客' },
+          { value: 0, name: '出/入' }
         ]"
         style="float: left; margin-top: 15px; margin-left: 20px;"
       />
-      <!-- <ul class="tab-2">
-        <li class="tab-button" :class="{'active': isTruckAndBus}" @click="isTruckAndBus = true">货/客</li>
-        <li
-          class="tab-button"
-          :class="{'active': !isTruckAndBus}"
-          @click="isTruckAndBus = false"
-        >出/入</li>
-      </ul>-->
       <TSwitcher
         v-model="isDay"
         :data="[
-          { value: 0, name: '当日' },
-          { value: 1, name: '当月' }
+          { value: 1, name: '当日' },
+          { value: 0, name: '当月' }
         ]"
       />
-      <!-- <div
-        class="switcher"
-        :class="{'switcher-begin': isDay, 'switcher-end': !isDay}"
-        @click="isDay = !isDay"
-      >
-        <label class="switcher-aLabel">当日</label>
-        <div class="switcher-bar">
-          <div class="switcher-bar-radius"></div>
-        </div>
-        <label class="switcher-bLabel">当月</label>
-      </div>-->
     </div>
     <div class="contentBox">
       <TEcharts
         id="barStationAnalysis"
         :option="optionStationAnalysis"
         :loading="loading"
-        resize="true"
+        :resize="true"
         style="height: 100%;"
       ></TEcharts>
     </div>
@@ -51,6 +32,8 @@
 </template>
 
 <script>
+import { getStationAnalysisData } from "@/api/dataView";
+
 import TTab from "@/views/DataView/components/TTab";
 import TSwitcher from "@/views/DataView/components/TSwitcher";
 
@@ -242,30 +225,25 @@ export default {
   },
   methods: {},
   watch: {},
-  created() {
-    this.loading = false;
+  async created() {
+    const [err, data] = await getStationAnalysisData();
+    if (!err) {
+      this.xAxis = data.stations;
 
-    // WELCOME_STATION_ANALYSIS({
-    //   success: response => {
-    //     let data = response.data;
+      this.truckThisDay = data.truckThisDay;
+      this.truckThisMonth = data.truckThisMonth;
 
-    //     this.xAxis = data.stations;
+      this.busThisDay = data.busThisDay;
+      this.busThisMonth = data.busThisMonth;
 
-    //     this.truckThisDay = data.truckThisDay;
-    //     this.truckThisMonth = data.truckThisMonth;
+      this.inThisDay = data.inThisDay;
+      this.inThisMonth = data.inThisMonth;
 
-    //     this.busThisDay = data.busThisDay;
-    //     this.busThisMonth = data.busThisMonth;
+      this.outThisDay = data.outThisDay;
+      this.outThisMonth = data.outThisMonth;
 
-    //     this.inThisDay = data.inThisDay;
-    //     this.inThisMonth = data.inThisMonth;
-
-    //     this.outThisDay = data.outThisDay;
-    //     this.outThisMonth = data.outThisMonth;
-
-    //     this.loading = false;
-    //   }
-    // });
+      this.loading = false;
+    }
   }
 };
 </script>

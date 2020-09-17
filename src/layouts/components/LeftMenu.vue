@@ -15,9 +15,9 @@
               {{ item.meta.title || item.name }}
             </template>
             <template v-for="v in item.children">
-              <el-menu-item :index="v.path" :key="v.path">{{
-                v.meta.title || v.name
-              }}</el-menu-item>
+              <el-menu-item :index="v.path" :key="v.path">
+                {{ v.meta.title || v.name }}
+              </el-menu-item>
             </template>
           </el-submenu>
         </template>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "LeftMenu",
   data: () => ({
@@ -40,9 +41,7 @@ export default {
     defaultActive: "/home"
   }),
   computed: {
-    visibledAddressableRoutes() {
-      return this.$store.state.leftMenu.visibledAddressableRoutes;
-    }
+    ...mapState("leftMenu", ["visibledAddressableRoutes"])
   },
   watch: {
     $route: {
@@ -96,6 +95,7 @@ export default {
   @deep: ~">>>";
 
   @{deep} .el-menu {
+    border-right: none;
     background: none;
 
     // 一级菜单、二级菜单、二级菜单标题，统一高度

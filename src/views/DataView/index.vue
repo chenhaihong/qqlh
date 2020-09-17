@@ -26,8 +26,8 @@ export default {
     bottom: 0;
     width: 100%;
     height: 100%;
-    min-width: 1100px;
-    min-height: 800px;
+    min-width: 960px;
+    min-height: 700px;
     background: #f2f2f2;
   }
 

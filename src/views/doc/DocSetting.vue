@@ -1,10 +1,25 @@
 <template>
   <TContainer>
     <section slot="head">
-      <h1>样式</h1>
+      <h1>项目配置</h1>
+      <br />
+      <p>代码中有2个配置，</p>
+      <ul>
+        <li>- /setting.js，存放项目需要的js配置</li>
+        <li>- /src/assets/less/variables.less，用于项目需要的样式配置</li>
+      </ul>
     </section>
     <section slot="default">
       <h2>1. 如何修改变量？</h2>
+      <br />
+      <p>
+        在 /setting.js 安装需要修改即可。
+      </p>
+      <pre class="pre">
+        <code class="less" v-hljs>{{setting}}</code>
+      </pre>
+
+      <h2>2. 如何修改样式变量？</h2>
       <br />
       <p>
         在 /src/assets/less/variables.less
@@ -22,6 +37,21 @@ export default {
   name: "DocStyle",
   data() {
     return {
+      setting: `
+module.exports = {
+  name: "阡阡路惠管理系统",
+  logo: "/assets/images/logo.png",
+  loginLogo: "/assets/images/login-logo.png",
+  slogan: "方便、快捷、精准",
+  copyright: "版权所有 ©2014 广州益车益路软件科技有限公司",
+  onStickyLeftMenu: false, // false：不强制使用sticky菜单
+  icpCode: "粤ICP备05014984号",
+  icpLink: "http://beian.miit.gov.cn/",
+  beianCode: "粤公网安备 44011302002141号",
+  beianLink:
+    "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44011302002141",
+};
+      `,
       variables: `
 //////////////////////////
 // ! mainLayout__head

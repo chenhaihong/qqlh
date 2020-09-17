@@ -12,7 +12,7 @@
         :loading="loading"
         :map="map"
         :mapName="mapName"
-        resize="true"
+        :resize="true"
         style="height: 100%;"
       ></TEcharts>
     </div>

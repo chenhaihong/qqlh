@@ -4,61 +4,27 @@
       <TTab
         v-model="isVehicle"
         :title="[
-          { value: 0, name: '车型分析' },
-          { value: 1, name: '行业资讯' }
+          { value: 1, name: '车型分析' },
+          { value: 0, name: '行业资讯' }
         ]"
       />
     </div>
-    <div v-show="isVehicle" class="contentBox">
+    <div v-show="isVehicle === 1" class="contentBox">
       <TEcharts
         id="barVehicleTypeNews"
         :option="option"
-        resize="true"
+        :resize="true"
         :loading="loading"
         style="height: 100%;"
       ></TEcharts>
     </div>
-    <div v-show="!isVehicle" class="contentBox">
+    <div v-show="isVehicle === 0" class="contentBox">
       <el-row>
         <el-col :span="24">
           <ul class="news">
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>内蒙古：包头今年将实施22个公路重点项目</span>
-            </li>
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>交通运输部：全国民用运输机场布局规划出炉</span>
-            </li>
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>江苏：县道公路网新一轮线路命名与编号正式发布</span>
-            </li>
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>新疆：车师古道拟建129公里一级公路（图）</span>
-            </li>
-
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>黑龙江：打造农村公路“升级版” 确定“八个100%”目标</span>
-            </li>
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>贵州：遵义湄潭至铜仁石阡高速今年内开建</span>
-            </li>
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>北京：本周末迎首个清明祭扫高峰 祭扫点增至215处</span>
-            </li>
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>甘肃：2017-3-22高速公路最新路况</span>
-            </li>
-
-            <li>
-              <i class="iconfont icon-news"></i>
-              <span>昆明：南收费站预计4月完成主体工程</span>
+            <li v-for="item in newsList" :key="item">
+              <SvgIcon iconClass="doc" />
+              <span>{{ item }}</span>
             </li>
           </ul>
         </el-col>
@@ -74,6 +40,17 @@ export default {
   data: () => ({
     loading: true,
     isVehicle: 1,
+    newsList: [
+      "内蒙古：包头今年将实施22个公路重点项目",
+      "交通运输部：全国民用运输机场布局规划出炉",
+      "江苏：县道公路网新一轮线路命名与编号正式发布",
+      "新疆：车师古道拟建129公里一级公路（图）",
+      "黑龙江：打造农村公路“升级版” 确定“八个100%”目标",
+      "贵州：遵义湄潭至铜仁石阡高速今年内开建",
+      "北京：本周末迎首个清明祭扫高峰 祭扫点增至215处",
+      "甘肃：2017-3-22高速公路最新路况",
+      "昆明：南收费站预计4月完成主体工程"
+    ],
     truck: [-10, -10, -5, -10, -20],
     bus: [10, 10, 10, 15]
   }),
@@ -216,6 +193,7 @@ export default {
 <style lang="less" scoped>
 .ChartPanel .contentBox .news {
   padding: 10px;
+  overflow-y: auto;
 
   li {
     margin-bottom: 6px;
@@ -226,10 +204,6 @@ export default {
 
     span {
       font-size: 14px;
-    }
-
-    .iconfont {
-      margin-right: 10px;
     }
   }
 }

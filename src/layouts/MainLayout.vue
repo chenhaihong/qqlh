@@ -3,10 +3,20 @@
     <Head class="mainLayout__head" />
     <div
       class="mainLayout__body"
-      :class="{ 'mainLayout__body--hideLeftMenu': !show }"
+      :class="{
+        'mainLayout__body--hideLeftMenu': !show,
+        'mainLayout__body--stickyLeftMenu': sticky
+      }"
     >
       <transition name="slide">
-        <LeftMenu v-show="show" class="left-menu" />
+        <LeftMenu v-show="show" class="left-meÎnu" />
+      </transition>
+      <transition name="el-fade-in-linear">
+        <div
+          v-show="sticky && show"
+          class="left-menu-shadow"
+          @click="toggleMenu"
+        ></div>
       </transition>
       <div class="right-content">
         <Breadcrumb />
@@ -26,7 +36,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 import Head from "./components/Head.vue";
 import LeftMenu from "./components/LeftMenu.vue";
@@ -41,7 +51,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("leftMenu", ["show"]),
+    ...mapState("leftMenu", ["show", "sticky"]),
     isKeepAlive() {
       return !!this.$route.meta.keepAlive;
     }
@@ -52,6 +62,9 @@ export default {
       this.transitionName =
         __routerType__ === "forward" ? "cv-slide-left" : "cv-slide-right";
     }
+  },
+  methods: {
+    ...mapMutations("leftMenu", ["toggleMenu"])
   }
 };
 </script>
@@ -83,15 +96,34 @@ export default {
       margin-left: 0;
     }
   }
+  &.mainLayout__body--stickyLeftMenu {
+    .left-menu {
+      top: @header-height + @breadcrumb-height - 1;
+      box-shadow: inset 0px 0px 1px #000;
+    }
+    .right-content {
+      margin-left: 0;
+    }
+  }
 
   .left-menu {
     z-index: @leftMenu-z-index;
     position: fixed;
     top: @header-height;
+    bottom: 0;
     width: @leftMenu-width;
-    height: calc(100% - @header-height);
     background-color: @leftMenu-background-color;
     overflow: hidden auto;
+  }
+
+  .left-menu-shadow {
+    z-index: @leftMenu-shadow-z-index;
+    position: fixed;
+    top: @header-height + @breadcrumb-height - 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: @leftMenu-shadow-background-color;
   }
 
   .right-content {

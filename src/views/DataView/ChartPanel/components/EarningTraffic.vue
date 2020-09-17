@@ -21,7 +21,7 @@
         id="barEarningTraffic"
         :option="chartOption"
         :loading="loading"
-        resize="true"
+        :resize="true"
         style="height: 100%;"
       ></TEcharts>
     </div>

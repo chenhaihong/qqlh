@@ -1,6 +1,7 @@
 const { resolve } = require("path");
 
 const express = require("express");
+const favicon = require("serve-favicon");
 const { createAttachMocker } = require("@erye/wds-mocker");
 
 const app = express();
@@ -10,7 +11,7 @@ app.get("/", function(req, res, next) {
   res.setHeader("Cache-Control", "public, max-age=0");
   res.sendFile(resolve(__dirname, "../dist/index.html"));
 });
-
+app.use(favicon(resolve(__dirname, "../dist", "favicon.ico")));
 app.use(
   express.static(resolve(__dirname, "../dist"), {
     // eslint-disable-next-line

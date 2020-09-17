@@ -1,13 +1,20 @@
-import routes from "@/router/routes";
-import hasIntersect from "@/helpers/hasIntersect";
 import { resolve } from "path";
+
+import setting from "@/setting";
+import hasIntersect from "@/helpers/hasIntersect";
+import routes from "@/router/routes";
 
 export default {
   namespaced: true,
-  state: () => ({
-    show: localDefaultShow.get(),
-    visibledAddressableRoutes: [] // 可见的、当前用户角色可以访问的routes数据
-  }),
+  state: () => {
+    const sticky = setting.onStickyLeftMenu || window.innerWidth <= 768;
+    const show = sticky ? false : localDefaultShow.get();
+    return {
+      sticky,
+      show,
+      visibledAddressableRoutes: [] // 可见的、当前用户角色可以访问的routes数据
+    };
+  },
   mutations: {
     updateVisibledAddressableRoutes(state, { roles }) {
       const routes = getVisibledAddressableRoutes(routes, roles);

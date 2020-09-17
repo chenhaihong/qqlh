@@ -9,6 +9,15 @@
           >vue-cli官网</a
         >。
       </p>
+      <p>
+        代码地址：
+        <a
+          class="link"
+          href="https://github.com/chenhaihong/qqlh"
+          target="_blank"
+          >https://github.com/chenhaihong/qqlh</a
+        >。
+      </p>
     </section>
     <section slot="default">
       <p>这里几个常用的命令，</p>

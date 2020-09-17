@@ -44,7 +44,7 @@ const routes = [
       {
         path: "/home",
         name: "Home",
-        meta: { title: "首页", keepAlive: true, roles: [1, 2] },
+        meta: { title: "首页", keepAlive: true },
         component: () => import("@/views/DataView/index.vue"),
         hidden: true
       }
@@ -54,7 +54,7 @@ const routes = [
     path: "/DataView",
     name: "DataView",
     icon: "data",
-    meta: { title: "数据大屏", link: "/DataView" },
+    meta: { title: "数据大屏" },
     component: () => import("@/views/DataView/index.vue")
   },
   {
@@ -100,6 +100,12 @@ const routes = [
         component: () => import("@/views/doc/DocIndex.vue")
       },
       {
+        path: "/doc/style",
+        name: "DocSetting",
+        meta: { title: "项目配置", roles: [2] },
+        component: () => import("@/views/doc/DocSetting.vue")
+      },
+      {
         path: "/doc/route",
         name: "DocRoute",
         meta: { title: "路由配置", roles: [2] },
@@ -128,12 +134,6 @@ const routes = [
         name: "DocSvg",
         meta: { title: "Svg图标", roles: [2] },
         component: () => import("@/views/doc/DocSvg.vue")
-      },
-      {
-        path: "/doc/style",
-        name: "DocStyle",
-        meta: { title: "样式", roles: [2] },
-        component: () => import("@/views/doc/DocStyle.vue")
       },
       {
         path: "/doc/service",
