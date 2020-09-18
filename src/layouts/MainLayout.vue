@@ -9,27 +9,25 @@
       }"
     >
       <transition name="slide">
-        <LeftMenu v-show="show" class="left-meÎnu" />
+        <LeftMenu v-show="show" class="mainLayout__body__left-menu" />
       </transition>
       <transition name="el-fade-in-linear">
         <div
           v-show="sticky && show"
-          class="left-menu-shadow"
-          @click="toggleMenu"
-        ></div>
+          class="mainLayout__body__left-menu-shadow"
+          @click="toggleShow"
+        />
       </transition>
-      <div class="right-content">
-        <Breadcrumb />
-        <div class="child-view">
-          <transition :name="transitionName">
-            <keep-alive>
-              <router-view v-if="isKeepAlive" />
-            </keep-alive>
-          </transition>
-          <transition :name="transitionName">
-            <router-view v-if="!isKeepAlive" />
-          </transition>
-        </div>
+      <Breadcrumb class="mainLayout__body__breadcrumb" />
+      <div ref="childView" class="mainLayout__body__childView">
+        <transition :name="transitionName">
+          <keep-alive>
+            <router-view v-if="isKeepAlive" />
+          </keep-alive>
+        </transition>
+        <transition :name="transitionName">
+          <router-view v-if="!isKeepAlive" />
+        </transition>
       </div>
     </div>
   </div>
@@ -64,16 +62,25 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("leftMenu", ["toggleMenu"])
+    ...mapMutations("leftMenu", ["toggleShow"])
+  },
+  beforeUpdate: function() {
+    const { childView } = this.$refs;
+    childView.scrollLeft = 0;
+    childView.scrollTop = 0;
   }
 };
 </script>
 <style lang="less" scoped>
-.mainLayout {
+@ctn: mainLayout;
+@head: mainLayout__head;
+@body: mainLayout__body;
+
+.@{ctn} {
   position: relative;
   box-sizing: border-box;
 }
-.mainLayout__head {
+.@{head} {
   z-index: @head-z-index;
   position: fixed;
   top: 0;
@@ -82,8 +89,7 @@ export default {
   height: @header-height;
   background-color: @header-background-color;
 }
-
-.mainLayout__body {
+.@{body} {
   z-index: @body-z-index;
   position: fixed;
   top: @header-height;
@@ -91,61 +97,61 @@ export default {
   left: 0;
   right: 0;
 
-  &.mainLayout__body--hideLeftMenu {
-    .right-content {
+  &.@{body}--hideLeftMenu {
+    .@{body}__breadcrumb {
+      left: 0;
+    }
+    .@{body}__childView {
       margin-left: 0;
     }
   }
-  &.mainLayout__body--stickyLeftMenu {
-    .left-menu {
+  &.@{body}--stickyLeftMenu {
+    .@{body}__left-menu {
       top: @header-height + @breadcrumb-height - 1;
       box-shadow: inset 0px 0px 1px #000;
     }
-    .right-content {
+    .@{body}__breadcrumb {
+      left: 0;
+    }
+    .@{body}__childView {
       margin-left: 0;
     }
   }
-
-  .left-menu {
-    z-index: @leftMenu-z-index;
-    position: fixed;
-    top: @header-height;
-    bottom: 0;
-    width: @leftMenu-width;
-    background-color: @leftMenu-background-color;
-    overflow: hidden auto;
-  }
-
-  .left-menu-shadow {
-    z-index: @leftMenu-shadow-z-index;
-    position: fixed;
-    top: @header-height + @breadcrumb-height - 1;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: @leftMenu-shadow-background-color;
-  }
-
-  .right-content {
-    z-index: @rightContent-z-index;
-    position: relative;
-    margin-left: @leftMenu-width;
-    height: 100%;
-    background: @rightContent-background-color;
-    overflow: auto;
-
-    .child-view {
-      position: absolute;
-      top: @breadcrumb-height;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: @childView-padding;
-      background: @childView-background-color;
-      box-sizing: border-box;
-      overflow: auto;
-    }
-  }
+}
+.@{body}__breadcrumb {
+  z-index: @breadcrumb-z-index;
+  position: fixed;
+  left: @leftMenu-width;
+}
+.@{body}__left-menu {
+  z-index: @leftMenu-z-index;
+  position: fixed;
+  top: @header-height;
+  bottom: 0;
+  width: @leftMenu-width;
+  background-color: @leftMenu-background-color;
+  overflow: hidden auto;
+}
+.@{body}__left-menu-shadow {
+  z-index: @leftMenu-shadow-z-index;
+  position: fixed;
+  top: @header-height + @breadcrumb-height - 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: @leftMenu-shadow-background-color;
+}
+.@{body}__childView {
+  z-index: @childView-z-index;
+  position: absolute;
+  margin-left: @leftMenu-width;
+  top: @breadcrumb-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: @childView-background-color;
+  // scroll-behavior: smooth;
+  overflow: auto;
 }
 </style>
 

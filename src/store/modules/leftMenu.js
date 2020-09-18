@@ -20,9 +20,12 @@ export default {
       const routes = getVisibledAddressableRoutes(routes, roles);
       state.visibledAddressableRoutes = Object.freeze(routes);
     },
-    toggleMenu(state) {
+    toggleShow(state) {
       state.show = !state.show;
       localDefaultShow.set(state.show);
+    },
+    toggleSticky(state) {
+      state.sticky = !state.sticky;
     }
   }
 };

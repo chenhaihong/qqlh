@@ -15,9 +15,9 @@
               {{ item.meta.title || item.name }}
             </template>
             <template v-for="v in item.children">
-              <el-menu-item :index="v.path" :key="v.path">
-                {{ v.meta.title || v.name }}
-              </el-menu-item>
+              <el-menu-item :index="v.path" :key="v.path">{{
+                v.meta.title || v.name
+              }}</el-menu-item>
             </template>
           </el-submenu>
         </template>
@@ -29,11 +29,14 @@
         </template>
       </template>
     </el-menu>
+    <div class="wrapper--pin" :class="{ active: sticky }" @click="toggleSticky">
+      <SvgIcon class="icon--pin" iconClass="pin" />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "LeftMenu",
   data: () => ({
@@ -41,7 +44,7 @@ export default {
     defaultActive: "/home"
   }),
   computed: {
-    ...mapState("leftMenu", ["visibledAddressableRoutes"])
+    ...mapState("leftMenu", ["visibledAddressableRoutes", "sticky"])
   },
   watch: {
     $route: {
@@ -59,6 +62,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("leftMenu", ["toggleSticky"]),
     select(index) {
       const { route } = this.$router.resolve(index);
       const { meta = {}, fullPath } = route;
@@ -93,6 +97,7 @@ export default {
 <style lang="less" scoped>
 .left-menu {
   @deep: ~">>>";
+  // padding-bottom: @leftMenu-pin-height;
 
   @{deep} .el-menu {
     border-right: none;
@@ -150,6 +155,25 @@ export default {
             background: none;
           }
         }
+      }
+    }
+  }
+
+  .wrapper--pin {
+    position: fixed;
+    bottom: 0;
+    width: @leftMenu-width;
+    text-align: center;
+    height: @leftMenu-pin-height;
+    line-height: @leftMenu-pin-height;
+    background: @leftMenu-pin-background-color;
+    font-size: @leftMenu-pin-font-size;
+    color: @leftMenu-pin-color;
+    cursor: pointer;
+
+    &.active {
+      .icon--pin {
+        color: @leftMenu-pin-active-color;
       }
     }
   }

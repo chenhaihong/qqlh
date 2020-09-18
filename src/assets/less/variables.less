@@ -1,7 +1,16 @@
+#zIndex() {
+  head: 1000;
+  body: 900;
+  body__leftMenu: 100;
+  body__leftMenuShadow: 99;
+  body__breadcrumb: 1000;
+  body__childView: 90;
+}
+
 //////////////////////////
 // ! mainLayout__head
 //////////////////////////
-@head-z-index: 1000;
+@head-z-index: #zIndex[head];
 @header-height: 50px;
 @header-color: #ffffff;
 @header-background-color: #3ba4e2;
@@ -25,12 +34,12 @@
 //////////////////////////
 // ! mainLayout__body
 //////////////////////////
-@body-z-index: 900;
+@body-z-index: #zIndex[body];
 
 //////////////////////////
-// ! leftMenu
+// ! mainLayout__body__leftMenu
 //////////////////////////
-@leftMenu-z-index: 100;
+@leftMenu-z-index: #zIndex[body__leftMenu];;
 @leftMenu-width: 160px;
 @leftMenu-background-color: #96d0f8;
 // menu
@@ -46,30 +55,42 @@
 @leftMenu-submenu-active-color: #fff;
 // comfirm
 @leftMenu-comfirm-link-color: #16659d;
-//////////////////////////
-// ! left-menu-shadow
-//////////////////////////
-@leftMenu-shadow-z-index: 99;
-@leftMenu-shadow-background-color: rgba(0, 0, 0, .5);
+// pin
+@leftMenu-pin-height: 40px;
+@leftMenu-pin-font-size: 16px;
+@leftMenu-pin-background-color: #96d0f8;
+@leftMenu-pin-color: #000;
+@leftMenu-pin-active-color: #16659d;
 
 //////////////////////////
-// ! rightContent
+// ! mainLayout__body__left-menu-shadow
 //////////////////////////
-@rightContent-z-index: 98;
-@rightContent-background-color: #ffffff;
+@leftMenu-shadow-z-index: #zIndex[body__leftMenuShadow];
+@leftMenu-shadow-background-color: rgba(0, 0, 0, 0.5);
 
-// rightContent 的 breadcrumb
+//////////////////////////
+// ! mainLayout__body__breadcrumb
+//////////////////////////
+// breadcrumb
+@breadcrumb-z-index: #zIndex[body__breadcrumb];
 @breadcrumb-height: 50px;
 @breadcrumb-color: #303133;
 @breadcrumb-disabled-color: #606266;
 @breadcrumb-font-size: 14px;
 @breadcrumb-background-color: #ffffff;
+@breadcrumb-bodero-color: #ddd;
+@breadcrumb-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+@breadcrumb-box-shadow: none;
 // toggler
 @breadcrumb-toggler-font-size: 20px;
 @breadcrumb-toggler-color: #000;
 @breadcrumb-toggler-active-color: #3ca9f4;
 
-// rightContent 的 childView
+//////////////////////////
+// ! mainLayout__body__childView
+//////////////////////////
+// childView
+@childView-z-index: #zIndex[body__childView];
 @childView-padding: 0;
 @childView-background-color: #f2f2f2;
 // childView 里的 container

@@ -2,8 +2,8 @@
   <div :class="$style.breadcrumb">
     <i
       :class="[$style.toggler, show ? 'el-icon-s-fold' : 'el-icon-s-unfold']"
-      @click="toggleMenu"
-    ></i>
+      @click="toggleShow"
+    />
     <div :class="$style.square"></div>
     <a v-if="$route.name == 'Home'" :class="[$style.link, $style.disabled]"
       >首页</a
@@ -12,18 +12,18 @@
       <!-- <router-link :class="$style.link" :to="{ path: '/home' }">首页</router-link> -->
       <template v-for="(item, index) in $route.matched">
         <div :class="$style.linkSep" :key="item.fullPath">
-          <span v-if="index > 0" :class="$style.separator">
-            {{ separator }}
-          </span>
+          <span v-if="index > 0" :class="$style.separator">{{
+            separator
+          }}</span>
           <router-link
             v-if="index < $route.matched.length - 1"
             :to="{ path: item.path }"
             :class="$style.link"
             >{{ item.meta.title }}</router-link
           >
-          <a v-else :class="[$style.link, $style.disabled]">
-            {{ item.meta.title }}
-          </a>
+          <a v-else :class="[$style.link, $style.disabled]">{{
+            item.meta.title
+          }}</a>
         </div>
       </template>
     </template>
@@ -40,18 +40,20 @@ export default {
     ...mapState("leftMenu", ["show"])
   },
   methods: {
-    ...mapMutations("leftMenu", ["toggleMenu"])
+    ...mapMutations("leftMenu", ["toggleShow"])
   }
 };
 </script>
 <style lang="less" scoped module>
 .breadcrumb {
   position: relative;
+  width: 100%;
   height: @breadcrumb-height;
   line-height: @breadcrumb-height;
   font-size: @breadcrumb-font-size;
   background: @breadcrumb-background-color;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid @breadcrumb-bodero-color;
+  box-shadow: @breadcrumb-box-shadow;
   overflow: hidden;
   box-sizing: border-box;
 

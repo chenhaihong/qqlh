@@ -23,8 +23,8 @@
         <el-col :span="24">
           <ul class="news">
             <li v-for="item in newsList" :key="item">
-              <SvgIcon iconClass="doc" />
-              <span>{{ item }}</span>
+              <SvgIcon class="icon" iconClass="doc" />
+              <span :title="item">{{ item }}</span>
             </li>
           </ul>
         </el-col>
@@ -201,7 +201,9 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-
+    .icon {
+      margin-right: 8px;
+    }
     span {
       font-size: 14px;
     }

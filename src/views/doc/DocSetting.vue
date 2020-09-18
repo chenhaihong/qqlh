@@ -41,22 +41,38 @@ export default {
 module.exports = {
   name: "阡阡路惠管理系统",
   logo: "/assets/images/logo.png",
+
+  // 控制左侧菜单
+  // true，进入页面即启用sticky菜单。但是，用户还是可以通过按钮切换形式。
+  // false：不强制使用sticky菜单。
+  onStickyLeftMenu: false,
+
+  // 登录页面
   loginLogo: "/assets/images/login-logo.png",
   slogan: "方便、快捷、精准",
   copyright: "版权所有 ©2014 广州益车益路软件科技有限公司",
-  onStickyLeftMenu: false, // false：不强制使用sticky菜单
   icpCode: "粤ICP备05014984号",
   icpLink: "http://beian.miit.gov.cn/",
   beianCode: "粤公网安备 44011302002141号",
   beianLink:
     "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44011302002141",
 };
+
       `,
       variables: `
+#zIndex() {
+  head: 1000;
+  body: 900;
+  body__leftMenu: 100;
+  body__leftMenuShadow: 99;
+  body__breadcrumb: 1000;
+  body__childView: 90;
+}
+
 //////////////////////////
 // ! mainLayout__head
 //////////////////////////
-@head-z-index: 1000;
+@head-z-index: #zIndex[head];
 @header-height: 50px;
 @header-color: #ffffff;
 @header-background-color: #3ba4e2;
@@ -80,18 +96,18 @@ module.exports = {
 //////////////////////////
 // ! mainLayout__body
 //////////////////////////
-@body-z-index: 900;
+@body-z-index: #zIndex[body];
 
 //////////////////////////
-// ! leftMenu
+// ! mainLayout__body__leftMenu
 //////////////////////////
-@leftMenu-z-index: 100;
+@leftMenu-z-index: #zIndex[body__leftMenu];;
 @leftMenu-width: 160px;
 @leftMenu-background-color: #96d0f8;
+// menu
 @leftMenu-menu-height: 50px;
 @leftMenu-menu-font-size: 12px;
 @leftMenu-menu-icon-size: 12px;
-// menu
 @leftMenu-menu-color: #000;
 @leftMenu-menu-active-color: #ffffff;
 @leftMenu-menu-active-background-color: #16659d;
@@ -101,28 +117,52 @@ module.exports = {
 @leftMenu-submenu-active-color: #fff;
 // comfirm
 @leftMenu-comfirm-link-color: #16659d;
+// pin
+@leftMenu-pin-height: 40px;
+@leftMenu-pin-font-size: 16px;
+@leftMenu-pin-background-color: #96d0f8;
+@leftMenu-pin-color: #000;
+@leftMenu-pin-active-color: #16659d;
 
 //////////////////////////
-// ! rightContent
+// ! mainLayout__body__left-menu-shadow
 //////////////////////////
-@rightContent-z-index: 99;
-@rightContent-background-color: #ffffff;
+@leftMenu-shadow-z-index: #zIndex[body__leftMenuShadow];
+@leftMenu-shadow-background-color: rgba(0, 0, 0, 0.5);
 
-// rightContent 的 breadcrumb
+//////////////////////////
+// ! mainLayout__body__breadcrumb
+//////////////////////////
+// breadcrumb
+@breadcrumb-z-index: #zIndex[body__breadcrumb];
 @breadcrumb-height: 50px;
 @breadcrumb-color: #303133;
 @breadcrumb-disabled-color: #606266;
 @breadcrumb-font-size: 14px;
 @breadcrumb-background-color: #ffffff;
+@breadcrumb-bodero-color: #ddd;
+@breadcrumb-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+@breadcrumb-box-shadow: none;
 // toggler
 @breadcrumb-toggler-font-size: 20px;
 @breadcrumb-toggler-color: #000;
 @breadcrumb-toggler-active-color: #3ca9f4;
 
-// rightContent 的 childView
+//////////////////////////
+// ! mainLayout__body__childView
+//////////////////////////
+// childView
+@childView-z-index: #zIndex[body__childView];
 @childView-padding: 0;
 @childView-background-color: #f2f2f2;
-
+// childView 里的 container
+@childView-container-font-size--large: 16px;
+@childView-container-font-size--medium: 14px;
+@childView-container-font-size--small: 12px;
+@childView-container-margin: 20px;
+@childView-container-padding: 20px;
+@childView-container-gap: 20px;
+@childView-container-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
       `
     };
   }

@@ -32,6 +32,7 @@ export default {
   margin: @childView-container-margin;
   padding-bottom: 1px;
   line-height: 1.4;
+  word-break: break-all;
   &.@{ctn}--large {
     font-size: @childView-container-font-size--large;
   }

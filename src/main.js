@@ -5,12 +5,20 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import "@/directives/hljs";
+{
+  const directives = require.context("./directives", false, /\.js$/);
+  directives.keys().map(directives);
+}
 
-// import "@/plugins/element-ui.js";
-import "@/plugins/t-echarts.js";
-import "@/plugins/t-ui.js";
-import "@/plugins/icons";
+{
+  const mixins = require.context("./mixins", false, /\.js$/);
+  mixins.keys().map(mixins);
+}
+
+{
+  const plugins = require.context("./plugins", false, /\.js$/);
+  plugins.keys().map(plugins);
+}
 
 Vue.config.productionTip = process.env.NODE_ENV === "development";
 
