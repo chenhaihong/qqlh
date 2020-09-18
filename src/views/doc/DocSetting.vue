@@ -42,11 +42,6 @@ module.exports = {
   name: "阡阡路惠管理系统",
   logo: "/assets/images/logo.png",
 
-  // 控制左侧菜单
-  // true，进入页面即启用sticky菜单。但是，用户还是可以通过按钮切换形式。
-  // false：不强制使用sticky菜单。
-  onStickyLeftMenu: false,
-
   // 登录页面
   loginLogo: "/assets/images/login-logo.png",
   slogan: "方便、快捷、精准",
@@ -57,7 +52,6 @@ module.exports = {
   beianLink:
     "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44011302002141",
 };
-
       `,
       variables: `
 #zIndex() {

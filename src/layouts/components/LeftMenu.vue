@@ -15,9 +15,9 @@
               {{ item.meta.title || item.name }}
             </template>
             <template v-for="v in item.children">
-              <el-menu-item :index="v.path" :key="v.path">{{
-                v.meta.title || v.name
-              }}</el-menu-item>
+              <el-menu-item :index="v.path" :key="v.path">
+                {{ v.meta.title || v.name }}
+              </el-menu-item>
             </template>
           </el-submenu>
         </template>
@@ -29,7 +29,11 @@
         </template>
       </template>
     </el-menu>
-    <div class="wrapper--pin" :class="{ active: sticky }" @click="toggleSticky">
+    <div
+      class="wrapper--pin"
+      :class="{ withFixedLeftMenu: fixed }"
+      @click="toggleFixed"
+    >
       <SvgIcon class="icon--pin" iconClass="pin" />
     </div>
   </div>
@@ -44,7 +48,7 @@ export default {
     defaultActive: "/home"
   }),
   computed: {
-    ...mapState("leftMenu", ["visibledAddressableRoutes", "sticky"])
+    ...mapState("leftMenu", ["visibledAddressableRoutes", "fixed"])
   },
   watch: {
     $route: {
@@ -62,7 +66,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("leftMenu", ["toggleSticky"]),
+    ...mapMutations("leftMenu", ["toggleFixed"]),
     select(index) {
       const { route } = this.$router.resolve(index);
       const { meta = {}, fullPath } = route;
@@ -168,12 +172,14 @@ export default {
     line-height: @leftMenu-pin-height;
     background: @leftMenu-pin-background-color;
     font-size: @leftMenu-pin-font-size;
-    color: @leftMenu-pin-color;
     cursor: pointer;
 
-    &.active {
+    .icon--pin {
+      color: @leftMenu-pin-active-color;
+    }
+    &.withFixedLeftMenu {
       .icon--pin {
-        color: @leftMenu-pin-active-color;
+        color: @leftMenu-pin-color;
       }
     }
   }

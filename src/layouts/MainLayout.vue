@@ -4,19 +4,19 @@
     <div
       class="mainLayout__body"
       :class="{
-        'mainLayout__body--hideLeftMenu': !show,
-        'mainLayout__body--stickyLeftMenu': sticky
+        'mainLayout__body--hiddenLeftMenu': !show,
+        'mainLayout__body--fixedLeftMenu': fixed
       }"
     >
-      <transition name="slide">
-        <LeftMenu v-show="show" class="mainLayout__body__left-menu" />
-      </transition>
       <transition name="el-fade-in-linear">
         <div
-          v-show="sticky && show"
+          v-show="fixed && show"
           class="mainLayout__body__left-menu-shadow"
           @click="toggleShow"
         />
+      </transition>
+      <transition name="slide">
+        <LeftMenu v-show="show" class="mainLayout__body__left-menu" />
       </transition>
       <Breadcrumb class="mainLayout__body__breadcrumb" />
       <div ref="childView" class="mainLayout__body__childView">
@@ -49,7 +49,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("leftMenu", ["show", "sticky"]),
+    ...mapState("leftMenu", ["show", "fixed"]),
     isKeepAlive() {
       return !!this.$route.meta.keepAlive;
     }
@@ -97,7 +97,7 @@ export default {
   left: 0;
   right: 0;
 
-  &.@{body}--hideLeftMenu {
+  &.@{body}--hiddenLeftMenu {
     .@{body}__breadcrumb {
       left: 0;
     }
@@ -105,7 +105,7 @@ export default {
       margin-left: 0;
     }
   }
-  &.@{body}--stickyLeftMenu {
+  &.@{body}--fixedLeftMenu {
     .@{body}__left-menu {
       top: @header-height + @breadcrumb-height - 1;
       box-shadow: inset 0px 0px 1px #000;

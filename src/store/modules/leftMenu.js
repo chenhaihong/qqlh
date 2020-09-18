@@ -1,16 +1,15 @@
 import { resolve } from "path";
 
-import setting from "@/setting";
 import hasIntersect from "@/helpers/hasIntersect";
 import routes from "@/router/routes";
 
 export default {
   namespaced: true,
   state: () => {
-    const sticky = setting.onStickyLeftMenu || window.innerWidth <= 768;
-    const show = sticky ? false : localDefaultShow.get();
+    const fixed = localDefaultFixed.get();
+    const show = localDefaultShow.get();
     return {
-      sticky,
+      fixed,
       show,
       visibledAddressableRoutes: [] // 可见的、当前用户角色可以访问的routes数据
     };
@@ -24,8 +23,9 @@ export default {
       state.show = !state.show;
       localDefaultShow.set(state.show);
     },
-    toggleSticky(state) {
-      state.sticky = !state.sticky;
+    toggleFixed(state) {
+      state.fixed = !state.fixed;
+      localDefaultFixed.set(state.fixed);
     }
   }
 };
@@ -71,4 +71,15 @@ localDefaultShow.get = () => {
 };
 localDefaultShow.set = (val = true) => {
   localStorage.setItem(localDefaultShow.key, val ? "1" : "0");
+};
+
+function localDefaultFixed() {}
+localDefaultFixed.key = "tiiit_leftmenu_default_fixed";
+localDefaultFixed.get = () => {
+  const local = localStorage.getItem(localDefaultFixed.key);
+  if (local) return local === "1";
+  return window.innerWidth <= 768;
+};
+localDefaultFixed.set = (val = true) => {
+  localStorage.setItem(localDefaultFixed.key, val ? "1" : "0");
 };
