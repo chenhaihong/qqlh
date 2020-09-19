@@ -45,6 +45,11 @@
       <pre class="pre">
         <code class="bash" v-hljs>{{code}}</code>
       </pre>
+      <p>
+        <a class="link" href="https://qqlh.tiiit.cn/report.html" target="_blank"
+          >打包分析</a
+        >
+      </p>
     </section>
   </TContainer>
 </template>
