@@ -21,7 +21,7 @@
     </div>
     <div class="contentBox">
       <TEcharts
-        id="barStationAnalysis"
+        ref="techarts"
         :option="optionStationAnalysis"
         :loading="loading"
         :resize="true"
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { getStationAnalysisData } from "@/api/dataView";
 
 import TTab from "@/views/DataView/components/TTab";
@@ -61,6 +62,7 @@ export default {
   props: [],
   components: { TTab, TSwitcher },
   computed: {
+    ...mapState("leftMenu", ["show", "fixed"]),
     optionStationAnalysis() {
       let aName = "";
       let bName = "";
@@ -224,7 +226,14 @@ export default {
     }
   },
   methods: {},
-  watch: {},
+  watch: {
+    show() {
+      this.$refs.techarts.resizeHandler();
+    },
+    fixed() {
+      this.$refs.techarts.resizeHandler();
+    }
+  },
   async created() {
     const [err, data] = await getStationAnalysisData();
     if (!err) {

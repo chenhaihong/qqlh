@@ -18,7 +18,7 @@
     </div>
     <div class="contentBox">
       <TEcharts
-        id="barEarningTraffic"
+        ref="techarts"
         :option="chartOption"
         :loading="loading"
         :resize="true"
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import { getEarningTrafficData } from "@/api/dataView";
 
 import isLeapYear from "@/helpers/isLeapYear";
@@ -59,6 +61,7 @@ export default {
   }),
   components: { TTab, TSwitcher },
   computed: {
+    ...mapState("leftMenu", ["show", "fixed"]),
     chartOption() {
       // dataType 0 => 营收数据、1 => 车流数据
       // axisType 0 => 年粒度、1=> 月粒度
@@ -247,6 +250,12 @@ export default {
       handler(next) {
         this.xAxis = next == 0 ? this.getMonthAxis() : this.getYearAxis();
       }
+    },
+    show() {
+      this.$refs.techarts.resizeHandler();
+    },
+    fixed() {
+      this.$refs.techarts.resizeHandler();
     }
   },
   async created() {

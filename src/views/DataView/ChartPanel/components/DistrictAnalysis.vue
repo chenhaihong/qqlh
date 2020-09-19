@@ -6,8 +6,8 @@
     </div>
     <div class="contentBox">
       <TEcharts
+        ref="techarts"
         v-if="!loadingGeoJSON"
-        id="mapDistrictAnalysis"
         :option="chartOption"
         :loading="loading"
         :map="map"
@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import { getDistrictAnalysisData } from "@/api/dataView";
 
 import TTab from "@/views/DataView/components/TTab";
@@ -51,6 +52,7 @@ export default {
   props: ["isRebateAddComponent"],
   components: { TTab, TDropList },
   computed: {
+    ...mapState("leftMenu", ["show", "fixed"]),
     chartOption() {
       let bus = [];
       let truck = [];
@@ -153,7 +155,14 @@ export default {
     }
   },
   methods: {},
-  watch: {},
+  watch: {
+    show() {
+      this.$refs.techarts.resizeHandler();
+    },
+    fixed() {
+      this.$refs.techarts.resizeHandler();
+    }
+  },
   async created() {
     import("@/config/gdGeo.json")
       .then(data => {

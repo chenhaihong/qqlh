@@ -11,7 +11,7 @@
     </div>
     <div v-show="isVehicle === 1" class="contentBox">
       <TEcharts
-        id="barVehicleTypeNews"
+        ref="techarts"
         :option="option"
         :resize="true"
         :loading="loading"
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TTab from "@/views/DataView/components/TTab";
 export default {
   name: "VehicleTypeNews",
@@ -57,6 +58,7 @@ export default {
   props: [],
   components: { TTab },
   computed: {
+    ...mapState("leftMenu", ["show", "fixed"]),
     option() {
       let truck = this.truck;
       let bus = this.bus;
@@ -183,7 +185,14 @@ export default {
     }
   },
   methods: {},
-  watch: {},
+  watch: {
+    show() {
+      this.$refs.techarts.resizeHandler();
+    },
+    fixed() {
+      this.$refs.techarts.resizeHandler();
+    }
+  },
   created() {
     this.loading = false;
   }

@@ -18,7 +18,7 @@
     </div>
     <div class="contentBox">
       <TEcharts
-        id="lineTimeDuration"
+        ref="techarts"
         :option="chartOption"
         :loading="loading"
         :resize="true"
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { getTimeDurationAnalysisData } from "@/api/dataView";
 
 import TTab from "@/views/DataView/components/TTab";
@@ -55,6 +56,7 @@ export default {
   props: [],
   components: { TTab, TSwitcher },
   computed: {
+    ...mapState("leftMenu", ["show", "fixed"]),
     chartOption() {
       // dataType 0 => 营收时分分析、 1 => 车流时分分析
       // axisType 0 => 日粒度、 1=> 月粒度
@@ -206,6 +208,14 @@ export default {
         // animation: false,
         // blendMode: 'lighter',
       };
+    }
+  },
+  watch: {
+    show() {
+      this.$refs.techarts.resizeHandler();
+    },
+    fixed() {
+      this.$refs.techarts.resizeHandler();
     }
   },
   methods: {
