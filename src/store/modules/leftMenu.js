@@ -16,8 +16,8 @@ export default {
   },
   mutations: {
     updateVisibledAddressableRoutes(state, { roles }) {
-      const routes = getVisibledAddressableRoutes(routes, roles);
-      state.visibledAddressableRoutes = Object.freeze(routes);
+      const _routes = getVisibledAddressableRoutes(routes, roles);
+      state.visibledAddressableRoutes = Object.freeze(_routes);
     },
     toggleShow(state) {
       state.show = !state.show;
